@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 import aiohttp
+import requests
 from colorthief import ColorThief
 from io import BytesIO
 import random
