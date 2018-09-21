@@ -33,7 +33,7 @@ class NSFW():
                 f = r[0]['file_url']
                 async with aiohttp.ClientSession() as cs:
                     async with cs.get(r[0]['file_url']) as r:
-                        async with aiofiles.open('/some/file.img', mode='wb') as img:
+                        async with aiofiles.open(f, mode='wb') as img:
                             colour_thief = ColorThief(BytesIO(img.content))
                             colour = colour_thief.get_color(quality=13)
                             link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
@@ -52,7 +52,7 @@ class NSFW():
             f = r[0]['file_url']
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(r[0]['file_url']) as r:
-                    async with aiofiles.open('/some/file.img', mode='wb') as img:
+                    async with aiofiles.open(r, mode='wb') as img:
                         colour_thief = ColorThief(BytesIO(img.content))
                         colour = colour_thief.get_color(quality=15)
                         link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
