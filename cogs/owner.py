@@ -16,5 +16,24 @@ class Owner:
 	async def test(self, ctx):
 		await ctx.send('test')
 
+	async def run_cmd(self, cmd: str) -> str:
+	        process =\
+	            await asyncio.create_subprocess_shell(cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+	        results = await process.communicate()
+	        return "".join(x.decode("utf-8") for x in results)
+	    
+	@commands.command(hidden=True)
+	async def shell(self, ctx, *, code:str):
+	    x = await self.run_cmd(code)
+	    await ctx.send(f'```bash\n{x}\n```')
+
+	@commands.command(hidden=True)
+	async def update(self, ctx):
+	    msg = await ctx.send('Updating...')
+	    x = await self.run_cmd('git pull')
+	    x = x.replace('Merge made by the \'recursive\' strategy.', '')
+	    x = x.replace('From https://github.com/iWeeti/yuna', '')
+	    await msg.edit(content=f'```bash\n{x}\n```')
+
 def setup(bot):
 	bot.add_cog(Owner(bot))
