@@ -1,8 +1,8 @@
 from discord.ext import commands
 
 def is_owner():
-    def pred(ctx):
-        is_owner = ctx.author.id == 396153668820402197 or 464910064965386283
+    async def pred(ctx):
+        is_owner = ctx.author.id == 396153668820402197 or ctx.author.id == 464910064965386283
         if not is_owner:
             raise commands.NotOwner
         return is_owner
