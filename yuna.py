@@ -133,6 +133,17 @@ class Yuna(commands.AutoShardedBot):
 		except Exception as e:
 			print(e)
 
+	async def on_error(self, event, *args, **kwargs):
+	    e = discord.Embed(title='Event Error', colour=0xa32952)
+	    e.add_field(name='Event', value=event)
+	    e.description = f'```py\n{traceback.format_exc()}\n```'
+	    e.timestamp = datetime.datetime.utcnow()
+
+	    try:
+	        await self.logging_ch.send(embed=e)
+	    except:
+	        pass
+
 	def get_guild_prefixes(self, guild, *, local_inject=get_prefix):
 	    """Gets the guild prefixes."""
 	    proxy_msg = discord.Object(id=None)
