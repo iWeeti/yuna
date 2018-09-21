@@ -35,6 +35,7 @@ class Yuna(commands.AutoShardedBot):
 		for extension in INITIAL_EXTENSIONS:
 			try:
 				self.load_extension(f'cogs.{extension}')
+				print(f'[INFO] Loaded {extension}')
 			except Exception as e:
 				print(f'[FAIL] Failed to load {extension} with error: {e}')
 
