@@ -17,7 +17,8 @@ import os
 INITIAL_EXTENSIONS = [
 	'owner',
 	'anime',
-	'config'
+	'config',
+	'nsfw'
 ]
 
 def get_prefix(bot, msg):

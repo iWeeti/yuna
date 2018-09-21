@@ -19,7 +19,7 @@ class NSFW():
         if not ctx.channel.is_nsfw():
             await ctx.send(f'{ctx.tick(False)} This command can only be used at nsfw marked channels. You little pervert :smile:')
         return ctx.channel.is_nsfw()
-
+            
     @commands.command(aliases=["danb"])
     async def danbooru(self, ctx, *, tags=None):
         embd = discord.Embed(description=f"**Searching** for **\"{tags}\"**..")
@@ -30,17 +30,17 @@ class NSFW():
                 async with aiohttp.ClientSession() as cs:
                     async with cs.get(f"https://yande.re/post.json?limit=1&page={page}") as r:
                         r = await r.json()
-                f = r[0]['file_url']
                 async with aiohttp.ClientSession() as cs:
-                    async with cs.get(r[0]['file_url']) as r:
-                        async with aiofiles.open(f, mode='wb') as img:
-                            colour_thief = ColorThief(BytesIO(img.content))
-                            colour = colour_thief.get_color(quality=13)
-                            link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
-                            embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"Random Post", url=link)
-                            embed.set_image(url=f)
-                            embed.set_footer(text=f"♥ {r[0]['score']}")
-                            return await embd.edit(embed=embed)
+                    async with session.get(r[0]['file_url']) as response:
+                        img = await response.read()
+
+                colour_thief = ColorThief(BytesIO(img.content))
+                colour = colour_thief.get_color(quality=13)
+                link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
+                embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"Random Post", url=link)
+                embed.set_image(url=f)
+                embed.set_footer(text=f"♥ {r[0]['score']}")
+                return await embd.edit(embed=embed)
             except Exception as e:
                 return await embd.edit(content=f'An error occured!\n```\n{e}```')
         try:
@@ -49,17 +49,17 @@ class NSFW():
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(f"https://yande.re/post.json?tags={tags}&limit=1&page={page}") as r:
                     r = await r.json()
-            f = r[0]['file_url']
             async with aiohttp.ClientSession() as cs:
-                async with cs.get(r[0]['file_url']) as r:
-                    async with aiofiles.open(r, mode='wb') as img:
-                        colour_thief = ColorThief(BytesIO(img.content))
-                        colour = colour_thief.get_color(quality=15)
-                        link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
-                        embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"\"{tags}\"", url=link)
-                        embed.set_image(url=f)
-                        embed.set_footer(text=f"♥ {r[0]['score']}")
-                        await embd.edit(embed=embed)
+                async with aiohttp.ClientSession() as cs:
+                    async with session.get(r[0]['file_url']) as response:
+                        img = await response.read()
+            colour_thief = ColorThief(BytesIO(img.content))
+            colour = colour_thief.get_color(quality=15)
+            link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
+            embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"\"{tags}\"", url=link)
+            embed.set_image(url=f)
+            embed.set_footer(text=f"♥ {r[0]['score']}")
+            await embd.edit(embed=embed)
         except Exception as e:
             em = discord.Embed(title="No results found!")
             await embd.edit(embed=em)
