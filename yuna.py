@@ -104,27 +104,30 @@ class Yuna(commands.AutoShardedBot):
 	    await self.send_guild_stats(e, guild)
 
 	async def on_command_error(self, ctx, error):
-	    ignored = (commands.NoPrivateMessage, commands.DisabledCommand, commands.CheckFailure,
-	               commands.CommandNotFound, commands.UserInputError, discord.Forbidden, commands.CommandOnCooldown)
-	    error = getattr(error, 'original', error)
+		try:
+		    ignored = (commands.NoPrivateMessage, commands.DisabledCommand, commands.CheckFailure,
+		               commands.CommandNotFound, commands.UserInputError, discord.Forbidden, commands.CommandOnCooldown)
+		    error = getattr(error, 'original', error)
 
-	    if isinstance(error, ignored):
-	        return
+		    if isinstance(error, ignored):
+		        return
 
-	    e = discord.Embed(title='Command Error', colour=0xcc3366)
-	    e.add_field(name='Name', value=ctx.command.qualified_name)
-	    e.add_field(name='Author', value=f'{ctx.author} (ID: {ctx.author.id})')
+		    e = discord.Embed(title='Command Error', colour=0xcc3366)
+		    e.add_field(name='Name', value=ctx.command.qualified_name)
+		    e.add_field(name='Author', value=f'{ctx.author} (ID: {ctx.author.id})')
 
-	    fmt = f'Channel: {ctx.channel} (ID: {ctx.channel.id})'
-	    if ctx.guild:
-	        fmt = f'{fmt}\nGuild: {ctx.guild} (ID: {ctx.guild.id})'
+		    fmt = f'Channel: {ctx.channel} (ID: {ctx.channel.id})'
+		    if ctx.guild:
+		        fmt = f'{fmt}\nGuild: {ctx.guild} (ID: {ctx.guild.id})'
 
-	    e.add_field(name='Location', value=fmt, inline=False)
+		    e.add_field(name='Location', value=fmt, inline=False)
 
-	    exc = ''.join(traceback.format_exception(type(error), error, error.__traceback__, chain=False))
-	    e.description = f'```py\n{exc}\n```'
-	    e.timestamp = datetime.datetime.utcnow()
-	    await self.logging_ch.send(embed=e)
+		    exc = ''.join(traceback.format_exception(type(error), error, error.__traceback__, chain=False))
+		    e.description = f'```py\n{exc}\n```'
+		    e.timestamp = datetime.datetime.utcnow()
+		    await self.logging_ch.send(embed=e)
+		except Exception as e:
+			print(e)
 
 	def get_guild_prefixes(self, guild, *, local_inject=get_prefix):
 	    """Gets the guild prefixes."""
