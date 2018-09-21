@@ -13,7 +13,7 @@ import datetime
 import traceback
 import logging
 import os
-from .utils.paginator import HelpPaginator, CannotPaginate
+from cogs.utils.paginator import HelpPaginator, CannotPaginate
 
 INITIAL_EXTENSIONS = [
 	'owner',
