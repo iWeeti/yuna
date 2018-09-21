@@ -7,7 +7,7 @@ from collections import deque
 import config
 from random import choice as rnd
 import asyncio
-import aiohttps
+import aiohttp
 
 INITIAL_EXTENSIONS = [
 	'owner'
