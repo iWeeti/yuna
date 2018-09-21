@@ -66,14 +66,14 @@ class Yuna(commands.AutoshardedBot):
 	    await self.session.close()
 
 	def run(self):
-	try:
-	    super().run(config.token, reconnect=True)
-	finally:
-	    with open('prev_events.log', 'w', encoding='utf-8') as _fp:
-	        for data in self._prev_events:
-	            try:
-	                _x = json.dumps(data, ensure_ascii=True, indent=4)
-	            except:
-	                _fp.write(f'{data}\n')
-	            else:
-	                _fp.write(f'{_x}\n')
+		try:
+		    super().run(config.token, reconnect=True)
+		finally:
+		    with open('prev_events.log', 'w', encoding='utf-8') as _fp:
+		        for data in self._prev_events:
+		            try:
+		                _x = json.dumps(data, ensure_ascii=True, indent=4)
+		            except:
+		                _fp.write(f'{data}\n')
+		            else:
+		                _fp.write(f'{_x}\n')
