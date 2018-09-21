@@ -43,7 +43,7 @@ class Yuna(commands.AutoShardedBot):
 
 		self.prefixes = Config('prefixes.json')
 		self.remove_command('help')
-		self.add_command(self.help)
+		self.add_command(self._help)
 
 		for extension in INITIAL_EXTENSIONS:
 			try:
