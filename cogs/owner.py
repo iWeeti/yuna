@@ -55,10 +55,9 @@ class Owner:
     @commands.command(hidden=True)
     async def update(self, ctx):
         msg = await ctx.send('Updating...')
-        x = await self.run_cmd('git pull origin master --allow-unrelated-histories --no-edit')
-        #modules = re.match(r'cogs/.*\.py$', x)
+        x = await self.run_cmd('git pull')
         x = x.replace('Merge made by the \'recursive\' strategy.', '')
-        x = x.replace('From https://github.com/iWeeti/putin-s-data', '')
+        x = x.replace('From https://github.com/iWeeti/yuna', '')
         await msg.edit(content=f'```bash\n{x}\n```')
         
     @commands.command(hidden=True)
