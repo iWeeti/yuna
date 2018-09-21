@@ -140,7 +140,7 @@ class Pages:
     async def numbered_page(self):
         """lets you type a page number to go to"""
         to_delete = []
-        to_delete.append(await self.channel.send('What page do you want to go to?'))
+        to_delete.append(await self.channel.send("What page do you want to go to?"))
 
         def message_check(m):
             return m.author == self.author and \
@@ -150,7 +150,7 @@ class Pages:
         try:
             msg = await self.bot.wait_for('message', check=message_check, timeout=30.0)
         except asyncio.TimeoutError:
-            to_delete.append(await self.channel.send('Took too long.'))
+            to_delete.append(await self.channel.send("You took too long!"))
             await asyncio.sleep(5)
         else:
             page = int(msg.content)
@@ -428,7 +428,7 @@ class HelpPaginator(Pages):
             self.embed.add_field(name=signature(entry), value=entry.short_doc or "No help given", inline=False)
 
         if self.maximum_pages:
-            self.embed.set_author(name=f'Page {page}/{self.maximum_pages} ({self.total} commands)')
+            self.embed.set_author(name=f'Page {page} of {self.maximum_pages} ({self.total} commands)', icon_url=self.bot.user.avatar_url)
 
         if not self.paginating:
             return await self.channel.send(embed=self.embed)
