@@ -60,7 +60,7 @@ class Yuna(commands.AutoShardedBot):
 		print(f"[INFO] I'm Alive!\n"\
 			  f"[NAME] Logged in as {self.user.name}.\n"\
 			  f"[ ID ] {self.user.id}")
-		await self.bot.change_presence(activity=discord.Activity(name='y?help | UwU', type=discord.ActivityType.listening))
+		await self.change_presence(activity=discord.Activity(name='y?help | UwU', type=discord.ActivityType.listening))
 		self.loop.create_task(self.avatar_queue())
 
 	@property
@@ -95,12 +95,12 @@ class Yuna(commands.AutoShardedBot):
 
 	async def on_guild_join(self, guild):
 	    e = discord.Embed(colour=0x53dda4, title='New Guild') # green colour
-	    await self.bot.pool.execute(f'insert into guilds values ({guild.id})')
+	    await self.pool.execute(f'insert into guilds values ({guild.id})')
 	    await self.send_guild_stats(e, guild)
 
 	async def on_guild_remove(self, guild):
 	    e = discord.Embed(colour=0xdd5f53, title='Left Guild') # red colour
-	    await self.bot.pool.execute(f'delete from guilds where id={guild.id}')
+	    await self.pool.execute(f'delete from guilds where id={guild.id}')
 	    await self.send_guild_stats(e, guild)
 
 	async def on_command_error(self, ctx, error):
