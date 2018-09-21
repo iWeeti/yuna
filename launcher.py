@@ -7,7 +7,7 @@ import discord
 import importlib
 import contextlib
 
-from bot import Yuna, INITIAL_EXTENSIONS
+from yuna import Yuna, INITIAL_EXTENSIONS
 from cogs.utils.db import Table
 
 from pathlib import Path
