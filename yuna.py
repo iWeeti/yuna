@@ -10,6 +10,7 @@ from collections import deque
 import config
 
 INITIAL_EXTENSIONS = [
+	'owner'
 ]
 
 def get_prefix(bot, msg):
