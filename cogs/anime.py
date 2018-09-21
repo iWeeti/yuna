@@ -159,7 +159,6 @@ class Anime():
         e = discord.Embed(title="Here is a holo image for you {}.".format(ctx.author.name), color=ctx.author.top_role.color)
         e.set_image(url=nekos.img('holo'))
         await ctx.send(embed=e)
-        await ctx.send(embed=e)
 
     @commands.command()
     async def waifu(self, ctx):
