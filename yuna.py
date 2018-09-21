@@ -60,6 +60,7 @@ class Yuna(commands.AutoShardedBot):
 		print(f"[INFO] I'm Alive!\n"\
 			  f"[NAME] Logged in as {self.user.name}.\n"\
 			  f"[ ID ] {self.user.id}")
+		await self.bot.change_presence(activity=discord.Activity(name='y?help | UwU', type=discord.ActivityType.listening))
 		self.loop.create_task(self.avatar_queue())
 
 	def get_guild_prefixes(self, guild, *, local_inject=get_prefix):
