@@ -33,7 +33,7 @@ class Owner:
         return content.strip('` \n')
 
     async def __local_check(self, ctx):
-        return await self.bot.is_owner(ctx.author)
+        return ctx.author.id == 396153668820402197 or ctx.author.id == 464910064965386283
 
     def get_syntax_error(self, e):
         if e.text is None:
@@ -47,7 +47,6 @@ class Owner:
             return "".join(x.decode("utf-8") for x in results)
         
     @commands.command(hidden=True)
-    @commands.is_owner()
     async def shell(self, ctx, *, code:str):
         x = await self.run_cmd(code)
         await ctx.send(f'```bash\n{x}\n```')
@@ -71,7 +70,7 @@ class Owner:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
             module = str(module.replace('cogs.', ''))
-            await ctx.send(f'Loaded `{module}`')
+            await ctx.send(f'{ctx.tick(True)} Loaded `{module}`')
 
     @commands.command(hidden=True)
     async def unload(self, ctx, *, module):
@@ -84,7 +83,7 @@ class Owner:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
             module = str(module.replace('cogs.', ''))
-            await ctx.send(f'Unloaded `{module}`')
+            await ctx.send(f'{ctx.tick(True)} Unloaded `{module}`')
 
     @commands.command(name='reload', hidden=True)
     async def _reload(self, ctx, *, module):
@@ -98,10 +97,9 @@ class Owner:
             await ctx.send(f'```py\n{traceback.format_exc()}\n```')
         else:
             module = str(module.replace('cogs.', ''))
-            await ctx.send(f'Reloaded `{module}`')
+            await ctx.send(f'{ctx.tick(True)} Reloaded `{module}`')
 
     @commands.command(pass_context=True, hidden=True, name='eval')
-    @commands.is_owner()
     async def _eval(self, ctx, *, body: str):
         """Evaluates a code"""
 
@@ -149,7 +147,6 @@ class Owner:
                 await ctx.send(f'```py\n{value}{ret}\n```')
 
     @commands.command(pass_context=True, hidden=True)
-    @commands.is_owner()
     async def repl(self, ctx):
         """Launches an interactive REPL session."""
         variables = {
@@ -239,7 +236,6 @@ class Owner:
                 await ctx.send(f'Unexpected error: `{e}`')
 
     @commands.command(hidden=True)
-    @commands.is_owner()
     async def sql(self, ctx, *, query: str):
         """Run some SQL."""
         # the imports are here because I imagine some people would want to use
@@ -283,7 +279,6 @@ class Owner:
             await ctx.send(fmt)
 
     @commands.command(name='runas', aliases=['sudo'], hidden=True)
-    @commands.is_owner()
     async def _run_as(self, ctx, who: Union[discord.Member, discord.User], *, command: str):
         """Run a command as another user."""
         msg = copy.copy(ctx.message)
