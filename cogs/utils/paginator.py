@@ -40,7 +40,7 @@ class Pages:
         if left_over:
             pages += 1
         self.maximum_pages = pages
-        self.embed = discord.Embed(colour=discord.Colour.gold())
+        self.embed = discord.Embed(colour=ctx.me.top_role.color)
         self.paginating = len(entries) > per_page
         self.show_entry_count = show_entry_count
         self.reaction_emojis = [
@@ -419,10 +419,6 @@ class HelpPaginator(Pages):
         self.embed.clear_fields()
         self.embed.description = self.description
         self.embed.title = self.title
-
-        if hasattr(self, '_is_bot'):
-            value ='For more help, join the official bot support server: https://discord.gg/G7nr2sS'
-            self.embed.add_field(name='Support', value=value, inline=False)
 
         self.embed.set_footer(text=f'Use "{self.prefix}help command" for more info on a command.')
 
