@@ -18,7 +18,6 @@ class NSFW():
             return await ctx.send(f'{ctx.tick(False)} This command can only be used at nsfw marked channels. You little pervert :smile:')
 
     @commands.command(aliases=["danb"])
-    @commands.is_nsfw()
     async def danbooru(self, ctx, *, tags=None):
         embd = discord.Embed(description=f"**Searching** for **\"{tags}\"**..")
         embd = await ctx.send(embed=embd)
