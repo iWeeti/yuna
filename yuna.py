@@ -32,10 +32,6 @@ async def avatar_queue(self):
         	async with cs.get(rnd(avatars)) as r:
         		await self.bot.user.edit(avatar=r.content)
         await asyncio.sleep(86400)
-	
-async def on_ready(self):
-    print("\nI'm Alive!\nLogged in as Yuna.")
-    self.loop.create_task(self.avatar_queue())
 
 class Yuna(commands.AutoShardedBot):
 	def __init__(self):
@@ -55,6 +51,10 @@ class Yuna(commands.AutoShardedBot):
 	def config(self):
 	    """Returns the config."""
 	    return __import__('config')
+	
+	async def on_ready(self):
+		print(f"\nI'm Alive!\nLogged in as {self.user.name}.")
+		self.loop.create_task(self.avatar_queue())
 
 	def get_guild_prefixes(self, guild, *, local_inject=get_prefix):
 	    """Gets the guild prefixes."""
