@@ -1,2 +1,2 @@
-# yuna
-discord bot
+# Yuna
+Discord Bot Created by iWeeti & Lukee
