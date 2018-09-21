@@ -13,6 +13,10 @@ class NSFW():
     def __init__(self, bot):
         self.bot = bot
 
+    def __local_check(self, ctx):
+        if not ctx.channel.is_nsfw():
+            await ctx.send(f'{ctx.tick(False)} This command can only be used at nsfw marked channels. You little pervert :smile:')
+            return
 
     @commands.command(aliases=["danb"])
     @commands.is_nsfw()
