@@ -23,6 +23,12 @@ class Yuna(commands.AutoShardedBot):
 		super().__init__(command_prefix=get_prefix)
 		self.session = aiohttp.ClientSession(loop=self.loop)
 
+		for extension in INITIAL_EXTENSIONS:
+			try:
+				self.load_extension(f'cogs.{extension}')
+			except Exception as e:
+				print(f[FAIL] Failed to load '{extension} with error: {e]')
+
 	@property
 	def config(self):
 	    """Returns the config."""
