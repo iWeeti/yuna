@@ -50,7 +50,7 @@ class Yuna(commands.AutoShardedBot):
 			while True:
 				async with aiohttp.ClientSession() as cs:
 					async with cs.get(rnd(avatars)) as r:
-						await self.user.edit(avatar=r.content)
+						await self.user.edit(avatar=r)
 				await asyncio.sleep(86400)
 		except Exception as e:
 			print(e)
