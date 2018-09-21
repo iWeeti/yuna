@@ -31,7 +31,7 @@ async def avatar_queue(self):
         async with aiohtt.ClientSession() as cs:
         	async with cs.get(rnd(avatars)) as r:
         		await self.bot.user.edit(avatar=r.content)
-		await asyncio.sleep(86400)
+        await asyncio.sleep(86400)
 	
 async def on_ready(self):
     print("\nI'm Alive!\nLogged in as Yuna.")
