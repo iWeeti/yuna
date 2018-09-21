@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord
 import aiohttp
 from cogs.utils import context
+from collections import deque
 
 import config
 
@@ -23,12 +24,13 @@ class Yuna(commands.AutoShardedBot):
 	def __init__(self):
 		super().__init__(command_prefix=get_prefix)
 		self.session = aiohttp.ClientSession(loop=self.loop)
+        self._prev_events = deque(maxlen=10)
 
 		for extension in INITIAL_EXTENSIONS:
 			try:
 				self.load_extension(f'cogs.{extension}')
 			except Exception as e:
-				print(f[FAIL] Failed to load '{extension} with error: {e]')
+				print(f'[FAIL] Failed to load {extension} with error: {e}')
 
 	@property
 	def config(self):
