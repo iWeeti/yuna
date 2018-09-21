@@ -8,7 +8,7 @@ import config
 from random import choice as rnd
 import asyncio
 import aiohttp
-import requests
+import requests	
 
 INITIAL_EXTENSIONS = [
 	'owner'
@@ -50,13 +50,15 @@ class Yuna(commands.AutoShardedBot):
 				'https://media.discordapp.net/attachments/488928330805018626/492776959588433928/878577-download-wallpaper-yuna-1961x1226-pc.png?width=660&height=413']
 			while True:
 				r = requests.get(rnd(avatars))
-				await self.user.edit(avatar=r)
+				await self.user.edit(avatar=r.content)
 				await asyncio.sleep(86400)
 		except Exception as e:
 			print(e)
 	
 	async def on_ready(self):
-		print(f"\nI'm Alive!\nLogged in as {self.user.name}.")
+		print(f"[INFO] I'm Alive!\n"\
+			  f"[NAME] Logged in as {self.user.name}."\
+			  f"[ ID ] {self.user.id}")
 		self.loop.create_task(self.avatar_queue())
 
 	def get_guild_prefixes(self, guild, *, local_inject=get_prefix):
