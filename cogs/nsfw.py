@@ -14,14 +14,14 @@ class NSFW():
     """These commands can only be used in NSFW-Marked Channels"""
     def __init__(self, bot):
         self.bot = bot
-
-    async def __local_check(self, ctx):
-        if not ctx.channel.is_nsfw():
-            await ctx.send(f'{ctx.tick(False)} This command can only be used at nsfw marked channels. You little pervert :smile:')
-        return ctx.channel.is_nsfw()
             
     @commands.command(aliases=["danb"])
     async def danbooru(self, ctx, *, tags=None):
+        """Searches for NSFW images.
+        NSFW means not safe for work.
+        Basically it is just nudity and sex."""
+        if not ctx.channel.is_nsfw():
+            await ctx.send(f'{ctx.tick(False)} This command can only be used at nsfw marked channels. You little pervert :smile:')
         embd = discord.Embed(description=f"**Searching** for **\"{tags}\"**..")
         embd = await ctx.send(embed=embd)
         if not tags:
