@@ -144,7 +144,7 @@ class Yuna(commands.AutoShardedBot):
 
 	async def on_command(self, ctx):
 		"""This triggers when a command is invoked."""
-		self.commands_executed += 1
+		self.commands_run += 1
 
 	def get_guild_prefixes(self, guild, *, local_inject=get_prefix):
 	    """Gets the guild prefixes."""
