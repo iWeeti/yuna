@@ -47,7 +47,7 @@ class Yuna(commands.AutoShardedBot):
 			'https://media.discordapp.net/attachments/488928330805018626/492777747941163009/image0.png?width=660&height=413',
 			'https://media.discordapp.net/attachments/488928330805018626/492776959588433928/878577-download-wallpaper-yuna-1961x1226-pc.png?width=660&height=413']
 		while True:
-			async with aiohtt.ClientSession() as cs:
+			async with aiohttp.ClientSession() as cs:
 				async with cs.get(rnd(avatars)) as r:
 					await self.bot.user.edit(avatar=r.content)
 			await asyncio.sleep(86400)
