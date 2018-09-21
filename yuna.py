@@ -13,6 +13,7 @@ import datetime
 import traceback
 import logging
 import os
+from .utils.paginator import HelpPaginator, CannotPaginate
 
 INITIAL_EXTENSIONS = [
 	'owner',
@@ -39,6 +40,8 @@ class Yuna(commands.AutoShardedBot):
 		self.commands_run = 0
 
 		self.prefixes = Config('prefixes.json')
+		self.remove_command('help')
+		self.add_command(self.help)
 
 		for extension in INITIAL_EXTENSIONS:
 			try:
@@ -46,6 +49,27 @@ class Yuna(commands.AutoShardedBot):
 				print(f'[INFO] Loaded {extension}')
 			except Exception as e:
 				print(f'[FAIL] Failed to load {extension} with error: {e}')
+
+    @commands.command(name='help', hidden=True)
+    async def _help(self, ctx, *, command: str = None):
+        """Shows help about a command or the bot"""
+        try:
+            if command is None:
+                p = await HelpPaginator.from_bot(ctx)
+            else:
+                entity = self.bot.get_cog(command) or self.bot.get_command(command)
+
+                if entity is None:
+                    clean = command.replace('@', '@\u200b')
+                    return await ctx.send(f'Command or category "{clean}" not found.')
+                elif isinstance(entity, commands.Command):
+                    p = await HelpPaginator.from_command(ctx, entity)
+                else:
+                    p = await HelpPaginator.from_cog(ctx, entity)
+
+            await p.paginate()
+        except Exception as e:
+            await ctx.send(e)
 
 	@property
 	def config(self):
