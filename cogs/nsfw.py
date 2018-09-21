@@ -3,7 +3,7 @@ from discord.ext import commands
 import requests
 from colorthief import ColorThief
 from io import BytesIO
-#^
+import random
 #^
 ############## REQUESTTSTSTTSTSTST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
