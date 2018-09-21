@@ -26,7 +26,7 @@ class NSFW():
         if not tags:
             try:
                 page = random.randint(1, 50)
-                async def aiohttp.ClientSession() as cs:
+                async with aiohttp.ClientSession() as cs:
                     async with cs.get(f"https://yande.re/post.json?limit=1&page={page}") as r:
                         r = await r.json()
                 f = r[0]['file_url']
