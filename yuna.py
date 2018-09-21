@@ -18,7 +18,7 @@ def get_prefix(bot, msg):
         base.extend(bot.prefixes.get(msg.guild.id, ['yu ', 'yuna ', 'y?']))
     return base
 
-class Yuna(commands.AutoshardedBot):
+class Yuna(commands.AutoShardedBot):
 	def __init__(self):
 		super().__init__(command_prefix=get_prefix)
 		self.session = aiohttp.ClientSession(loop=self.loop)
