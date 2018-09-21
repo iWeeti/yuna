@@ -129,7 +129,7 @@ class Yuna(commands.AutoShardedBot):
 		    exc = ''.join(traceback.format_exception(type(error), error, error.__traceback__, chain=False))
 		    e.description = f'```py\n{exc}\n```'
 		    e.timestamp = datetime.datetime.utcnow()
-		    await self.logging_ch.send(embed=e)
+		    await self.error_ch.send(embed=e)
 		except Exception as e:
 			print(e)
 
@@ -140,7 +140,7 @@ class Yuna(commands.AutoShardedBot):
 	    e.timestamp = datetime.datetime.utcnow()
 
 	    try:
-	        await self.logging_ch.send(embed=e)
+	        await self.error_ch.send(embed=e)
 	    except:
 	        pass
 
