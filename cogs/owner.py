@@ -7,10 +7,10 @@ class Owner:
 		self.bot = bot
 
 	def __local_check(self, ctx):
-        is_owner = ctx.author.id == 464910064965386283 or ctx.author.id == 396153668820402197
-        if not is_owner:
-        	raise commands.NotOwner
-        return is_owner
+		is_owner = ctx.author.id == 464910064965386283 or ctx.author.id == 396153668820402197
+		if not is_owner:
+			raise commands.NotOwner
+		return is_owner
 
 	@commands.command()
 	async def test(self, ctx):
