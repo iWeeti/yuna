@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
-import requests
+import asyncio
+import aiohttp
 from colorthief import ColorThief
 from io import BytesIO
 import random
@@ -25,7 +26,9 @@ class NSFW():
         if not tags:
             try:
                 page = random.randint(1, 50)
-                r = requests.get(f"https://yande.re/post.json?limit=1&page={page}").json()
+                async def aiohttp.ClientSession() as cs:
+                    async with cs.get(f"https://yande.re/post.json?limit=1&page={page}") as r:
+                        r = await r.json()
                 f = r[0]['file_url']
                 img = requests.get(f)
                 colour_thief = ColorThief(BytesIO(img.content))
@@ -40,7 +43,9 @@ class NSFW():
         try:
             tags = tags.replace(" ", "+")
             page = random.randint(1, 10)
-            r = requests.get(f"https://yande.re/post.json?tags={tags}&limit=1&page={page}").json()
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(f"https://yande.re/post.json?tags={tags}&limit=1&page={page}") as r:
+                    r = await r.json()
             f = r[0]['file_url']
             img = requests.get(f)
             colour_thief = ColorThief(BytesIO(img.content))
