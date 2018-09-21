@@ -37,7 +37,7 @@ class NSFW():
                 colour = colour_thief.get_color(quality=15)
                 link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
                 embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"Random Post", url=link)
-                embed.set_image(url=f)
+                embed.set_image(url=r[0]['file_url'])
                 embed.set_footer(text=f"♥ {r[0]['score']}")
                 return await embd.edit(embed=embed)
             except Exception as e:
@@ -51,11 +51,11 @@ class NSFW():
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(r[0]['file_url']) as response:
                     img = await response.read()
-            colour_thief = ColorThief(img)
+            colour_thief = ColorThief(BytesIO(img))
             colour = colour_thief.get_color(quality=15)
             link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
             embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"\"{tags}\"", url=link)
-            embed.set_image(url=f)
+            embed.set_image(url=r[0]['file_url'])
             embed.set_footer(text=f"♥ {r[0]['score']}")
             await embd.edit(embed=embed)
         except Exception as e:
