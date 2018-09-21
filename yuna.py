@@ -35,6 +35,7 @@ class Yuna(commands.AutoShardedBot):
 		super().__init__(command_prefix=get_prefix)
 		self.session = aiohttp.ClientSession(loop=self.loop)
 		self._prev_events = deque(maxlen=10)
+		self.commands_run = 0
 
 		self.prefixes = Config('prefixes.json')
 
@@ -140,6 +141,10 @@ class Yuna(commands.AutoShardedBot):
 	    e.timestamp = datetime.datetime.utcnow()
 
 	    await self.error_ch.send(embed=e)
+
+	async def on_command(self, ctx):
+		"""This triggers when a command is invoked."""
+		self.commands_executed += 1
 
 	def get_guild_prefixes(self, guild, *, local_inject=get_prefix):
 	    """Gets the guild prefixes."""
