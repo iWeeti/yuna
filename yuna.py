@@ -15,7 +15,8 @@ import logging
 import os
 
 INITIAL_EXTENSIONS = [
-	'owner'
+	'owner',
+	'anime'
 ]
 
 def get_prefix(bot, msg):
@@ -98,13 +99,11 @@ class Yuna(commands.AutoShardedBot):
 		await self.guild_ch.send(embed=e)
 
 	async def on_guild_join(self, guild):
-	    e = discord.Embed(colour=0x53dda4, title='New Guild') # green colour
-	    await self.pool.execute(f'insert into guilds values ({guild.id})')
+	    e = discord.Embed(colour=0x53dda4, title='New Guild')
 	    await self.send_guild_stats(e, guild)
 
 	async def on_guild_remove(self, guild):
-	    e = discord.Embed(colour=0xdd5f53, title='Left Guild') # red colour
-	    await self.pool.execute(f'delete from guilds where id={guild.id}')
+	    e = discord.Embed(colour=0xdd5f53, title='Left Guild')
 	    await self.send_guild_stats(e, guild)
 
 	async def on_command_error(self, ctx, error):
@@ -139,10 +138,7 @@ class Yuna(commands.AutoShardedBot):
 	    e.description = f'```py\n{traceback.format_exc()}\n```'
 	    e.timestamp = datetime.datetime.utcnow()
 
-	    try:
-	        await self.error_ch.send(embed=e)
-	    except:
-	        pass
+	    await self.error_ch.send(embed=e)
 
 	def get_guild_prefixes(self, guild, *, local_inject=get_prefix):
 	    """Gets the guild prefixes."""
