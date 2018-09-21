@@ -43,14 +43,17 @@ class Yuna(commands.AutoShardedBot):
 	    return __import__('config')
 
 	async def avatar_queue(self):
-		avatars = ['https://cdn.discordapp.com/attachments/488928330805018626/492776771662643200/maxresdefault.png?width=734&height=413',
-			'https://media.discordapp.net/attachments/488928330805018626/492777747941163009/image0.png?width=660&height=413',
-			'https://media.discordapp.net/attachments/488928330805018626/492776959588433928/878577-download-wallpaper-yuna-1961x1226-pc.png?width=660&height=413']
-		while True:
-			async with aiohttp.ClientSession() as cs:
-				async with cs.get(rnd(avatars)) as r:
-					await self.bot.user.edit(avatar=r.content)
-			await asyncio.sleep(86400)
+		try:
+			avatars = ['https://cdn.discordapp.com/attachments/488928330805018626/492776771662643200/maxresdefault.png?width=734&height=413',
+				'https://media.discordapp.net/attachments/488928330805018626/492777747941163009/image0.png?width=660&height=413',
+				'https://media.discordapp.net/attachments/488928330805018626/492776959588433928/878577-download-wallpaper-yuna-1961x1226-pc.png?width=660&height=413']
+			while True:
+				async with aiohttp.ClientSession() as cs:
+					async with cs.get(rnd(avatars)) as r:
+						await self.bot.user.edit(avatar=r.content)
+				await asyncio.sleep(86400)
+		except Exception as e:
+			print(e)
 	
 	async def on_ready(self):
 		print(f"\nI'm Alive!\nLogged in as {self.user.name}.")
