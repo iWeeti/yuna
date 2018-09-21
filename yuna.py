@@ -61,6 +61,9 @@ class Yuna(commands.AutoShardedBot):
 	    else:
 	        await self.prefixes.put(guild.id, sorted(set(prefixes), reverse=True))
 
+	async def on_message(self, message):
+		if message.author.bot: return
+
 	async def on_resumed(self):
 	    """This triggers when the bot resumed after an outage."""
 	    print('[INFO] Resumed...')

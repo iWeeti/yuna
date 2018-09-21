@@ -42,7 +42,7 @@ class Owner:
 			return await ctx.send(f'{ctx.tick(False)} Ah dude you know what you forgot...')
 
 		try:
-			self.bot.load_extension(f'cogs/{module}')
+			self.bot.load_extension(f'cogs.{module}')
 		except Exception as e:
 			await ctx.send(e)
 		else:
