@@ -31,14 +31,16 @@ class NSFW():
                     async with cs.get(f"https://yande.re/post.json?limit=1&page={page}") as r:
                         r = await r.json()
                 f = r[0]['file_url']
-                img = requests.get(f)
-                colour_thief = ColorThief(BytesIO(img.content))
-                colour = colour_thief.get_color(quality=13)
-                link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
-                embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"Random Post", url=link)
-                embed.set_image(url=f)
-                embed.set_footer(text=f"♥ {r[0]['score']}")
-                return await embd.edit(embed=embed)
+                async with aiohttp.ClientSession() as cs:
+                    async with cs.get(r[0]['file_url']) as r:
+                        async with aiofiles.open('/some/file.img', mode='wb') as img:
+                            colour_thief = ColorThief(BytesIO(img.content))
+                            colour = colour_thief.get_color(quality=13)
+                            link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
+                            embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"Random Post", url=link)
+                            embed.set_image(url=f)
+                            embed.set_footer(text=f"♥ {r[0]['score']}")
+                            return await embd.edit(embed=embed)
             except Exception as e:
                 return await embd.edit(content=f'An error occured!\n```\n{e}```')
         try:
@@ -48,14 +50,16 @@ class NSFW():
                 async with cs.get(f"https://yande.re/post.json?tags={tags}&limit=1&page={page}") as r:
                     r = await r.json()
             f = r[0]['file_url']
-            img = requests.get(f)
-            colour_thief = ColorThief(BytesIO(img.content))
-            colour = colour_thief.get_color(quality=15)
-            link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
-            embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"\"{tags}\"", url=link)
-            embed.set_image(url=f)
-            embed.set_footer(text=f"♥ {r[0]['score']}")
-            await embd.edit(embed=embed)
+            async with aiohttp.ClientSession() as cs:
+                async with cs.get(r[0]['file_url']) as r:
+                    async with aiofiles.open('/some/file.img', mode='wb') as img:
+                        colour_thief = ColorThief(BytesIO(img.content))
+                        colour = colour_thief.get_color(quality=15)
+                        link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
+                        embed = discord.Embed(colour=discord.Color.from_rgb(*colour), title=f"\"{tags}\"", url=link)
+                        embed.set_image(url=f)
+                        embed.set_footer(text=f"♥ {r[0]['score']}")
+                        await embd.edit(embed=embed)
         except Exception as e:
             em = discord.Embed(title="No results found!")
             await embd.edit(embed=em)
