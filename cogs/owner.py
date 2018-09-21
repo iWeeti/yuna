@@ -36,5 +36,17 @@ class Owner:
 	    x = x.replace('From https://github.com/iWeeti/yuna', '')
 	    await msg.edit(content=f'```bash\n{x}\n```')
 
+	@commands.command(hidden=True)
+	async def load(self, ctx, *, module:str=None):
+		if not module:
+			return await ctx.send(f'{ctx.tick(False)} Ah dude you know what you forgot...')
+
+		try:
+			self.bot.load_extension(f'cogs/{module}')
+		except Exception as e:
+			await ctx.send(e)
+		else:
+			await ctx.send(ctx.tick(True))
+
 def setup(bot):
 	bot.add_cog(Owner(bot))

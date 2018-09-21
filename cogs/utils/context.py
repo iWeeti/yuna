@@ -153,7 +153,7 @@ class Context(commands.Context):
             return confirm
 
     def tick(self, opt, label=None):
-        emoji = '<:greentick:491575309045465089>' if opt else '<:redtick:491575308944932866>'
+        emoji = '<:greentick:492800272834494474>' if opt else '<:redtick:492800273211850767>'
         if label is not None:
             return f'{emoji}: {label}'
         return emoji
