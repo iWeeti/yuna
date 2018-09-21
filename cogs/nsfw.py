@@ -16,7 +16,7 @@ class NSFW():
     async def __local_check(self, ctx):
         if not ctx.channel.is_nsfw():
             await ctx.send(f'{ctx.tick(False)} This command can only be used at nsfw marked channels. You little pervert :smile:')
-            return False
+        return ctx.channel.is_nsfw()
 
     @commands.command(aliases=["danb"])
     async def danbooru(self, ctx, *, tags=None):
