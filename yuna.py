@@ -7,6 +7,7 @@ from collections import deque
 import config
 from random import choice as rnd
 import asyncio
+import aiohttps
 
 INITIAL_EXTENSIONS = [
 	'owner'
@@ -22,14 +23,15 @@ def get_prefix(bot, msg):
         base.extend(bot.prefixes.get(msg.guild.id, ['yu ', 'yuna ', 'y?']))
     return base
 
-async avatar_queue(self):
+async def avatar_queue(self):
     avatars = ['https://cdn.discordapp.com/attachments/488928330805018626/492776771662643200/maxresdefault.png?width=734&height=413',
 	       'https://media.discordapp.net/attachments/488928330805018626/492777747941163009/image0.png?width=660&height=413',
 	       'https://media.discordapp.net/attachments/488928330805018626/492776959588433928/878577-download-wallpaper-yuna-1961x1226-pc.png?width=660&height=413']
     while True:
-        r = requests.get(rnd(avatars))
-        await self.bot.user.edit(avatar=r.content)
-	await asyncio.sleep(86400)
+        async with aiohtt.ClientSession() as cs:
+        	async with cs.get(rnd(avatars)) as r:
+        		await self.bot.user.edit(avatar=r.content)
+		await asyncio.sleep(86400)
 	
 async def on_ready(self):
     print("\nI'm Alive!\nLogged in as Yuna.")
