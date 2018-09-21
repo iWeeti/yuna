@@ -8,6 +8,7 @@ import config
 from random import choice as rnd
 import asyncio
 import aiohttp
+import requests
 
 INITIAL_EXTENSIONS = [
 	'owner'
