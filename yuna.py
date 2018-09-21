@@ -28,7 +28,7 @@ class Yuna(commands.AutoShardedBot):
 	    """Returns the config."""
 	    return __import__('config')
 
-	def get_guild_prefixes(self, guild, *, local_inject=_prefix_callable):
+	def get_guild_prefixes(self, guild, *, local_inject=get_prefix):
 	    """Gets the guild prefixes."""
 	    proxy_msg = discord.Object(id=None)
 	    proxy_msg.guild = guild
