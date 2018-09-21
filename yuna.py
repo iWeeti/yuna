@@ -24,7 +24,7 @@ class Yuna(commands.AutoShardedBot):
 	def __init__(self):
 		super().__init__(command_prefix=get_prefix)
 		self.session = aiohttp.ClientSession(loop=self.loop)
-        self._prev_events = deque(maxlen=10)
+		self._prev_events = deque(maxlen=10)
 
 		for extension in INITIAL_EXTENSIONS:
 			try:
