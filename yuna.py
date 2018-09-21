@@ -58,7 +58,7 @@ class Yuna(commands.AutoShardedBot):
 	
 	async def on_ready(self):
 		print(f"[INFO] I'm Alive!\n"\
-			  f"[NAME] Logged in as {self.user.name}."\
+			  f"[NAME] Logged in as {self.user.name}.\n"\
 			  f"[ ID ] {self.user.id}")
 		self.loop.create_task(self.avatar_queue())
 
