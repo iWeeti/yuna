@@ -21,7 +21,7 @@ def get_prefix(bot, msg):
     if msg.guild is None:
         base.append('.')
     else:
-        base.extend(bot.prefixes.get(msg.guild.id, ['yu ', 'yuna ', 'y?']))
+        base.extend(bot.prefixes.get(msg.guild.id, ['yu ', 'Yu ', 'yuna ', 'y?']))
     return base
 
 class Yuna(commands.AutoShardedBot):
