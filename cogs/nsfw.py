@@ -31,7 +31,7 @@ class NSFW():
                     async with cs.get(f"https://yande.re/post.json?limit=1&page={page}") as r:
                         r = await r.json()
                 async with aiohttp.ClientSession() as cs:
-                    async with session.get(r[0]['file_url']) as response:
+                    async with cs.get(r[0]['file_url']) as response:
                         img = await response.read()
 
                 colour_thief = ColorThief(BytesIO(img.content))
@@ -50,9 +50,8 @@ class NSFW():
                 async with cs.get(f"https://yande.re/post.json?tags={tags}&limit=1&page={page}") as r:
                     r = await r.json()
             async with aiohttp.ClientSession() as cs:
-                async with aiohttp.ClientSession() as cs:
-                    async with session.get(r[0]['file_url']) as response:
-                        img = await response.read()
+                async with cs.get(r[0]['file_url']) as response:
+                    img = await response.read()
             colour_thief = ColorThief(BytesIO(img.content))
             colour = colour_thief.get_color(quality=15)
             link = 'https://danbooru.donmai.us/posts/' + str(r[0]['id'])
