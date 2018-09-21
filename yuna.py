@@ -1,13 +1,15 @@
 from discord.ext import commands
 import discord
 import aiohttp
+
 from cogs.utils import context
+from cogs.utils.config import Config
+
 from collections import deque
 
 import config
 
 INITIAL_EXTENSIONS = [
-	'',
 ]
 
 def get_prefix(bot, msg):
@@ -25,6 +27,8 @@ class Yuna(commands.AutoShardedBot):
 		super().__init__(command_prefix=get_prefix)
 		self.session = aiohttp.ClientSession(loop=self.loop)
 		self._prev_events = deque(maxlen=10)
+
+		self.prefixes = Config('prefixes.json')
 
 		for extension in INITIAL_EXTENSIONS:
 			try:
