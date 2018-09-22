@@ -62,7 +62,7 @@ WEAPONS = {
 	0: {
 		'name': 'No weapon',
 		'damage': 0,
-		'description', 'No weapon',
+		'description': 'No weapon',
 		'price': 0
 	}
 }
