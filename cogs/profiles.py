@@ -189,6 +189,9 @@ class Profile:
 			e.add_field(name="Level", value=profile.level)
 			# e.add_field(name="Inventory", value=profile.inv)
 
+			e.set_footer(text='The profiles are still in development and not fully done.\n'\
+							  'Don\'t excpect them to work ideally or in anyway yet.')
+
 			await ctx.send(embed=e)
 
 	@profile.command(hidden=True)
