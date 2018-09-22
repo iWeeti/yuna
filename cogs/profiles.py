@@ -102,7 +102,8 @@ class Profile:
 		self.bot = bot
 
 	async def get_profile(self, ctx, member=None):
-		id = member.id if member else ctx.author.id
+		member = member or ctx.author
+		id = member.id
 		record = await self.bot.pool.fetchrow(f'select * from profiles where id={id}')
 		return ProfileInfo(self.bot, ctx, member.name, record)
 
