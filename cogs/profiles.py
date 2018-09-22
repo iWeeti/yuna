@@ -54,20 +54,6 @@ class DisambiguateMember(commands.IDConverter):
             raise commands.BadArgument("Could not find this member. Note this is case sensitive.")
         return result
 
-ITEMS = {
-	0: {
-		'name': 'Apple',
-		'description': 'Red apple fallen from a tree...',
-		'price': 5,
-	},
-}
-
-class Item:
-	def __init__(self, id):
-		self.name = ITEMS[id]['name']
-		self.description = ITEMS[id]['description']
-		self.price = ITEMS[id]['price']
-
 WEAPONS = {
 	0: {
 		'name': 'No weapon',
@@ -112,31 +98,10 @@ class ProfileInfo:
 		self.cash = record['cash'] or 0
 		self.xp = record['xp'] or 0
 		self.level = record['level'] or 0
-		self._inv =  record['inv']
+		self.apples = record['apples']
 
 	def __str__(self):
-		return f'Profile of {self.name}'
-
-	@property
-	def inv(self):
-		items = []
-		try:
-			for index, id in enumerate(self._inv):
-				items.append(Item(id))
-		except TypeError:
-			return None
-		return self.items
-
-	@property
-	def inv_string(self):
-		items = []
-		try:
-			for index, id in enumerate(self._inv):
-				items.append(Item(id))
-		except TypeError:
-			return 'Nothing in inventory'
-		return ", ".join(items)
-		
+		return f'Profile of {self.name}'		
 
 	@staticmethod
 	def _get_level_xp(n):
