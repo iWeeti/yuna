@@ -127,7 +127,7 @@ class ProfileInfo:
 		            where id=$1;
 		         """
 		try:
-			_values = [_ for _ in *fields.values()]
+			_values = [_ for _ in fields.values()]
 
 			for key, value in fields:
 				self.__dict__[key] = _values[value]
