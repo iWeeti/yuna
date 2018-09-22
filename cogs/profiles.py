@@ -159,6 +159,9 @@ class Profile:
 		e.set_thumbnail(url=member.avatar_url)
 
 		e.add_field(name="Weapon", value=str(profile.weapon))
+		e.add_field(name="Cash", value=profile.cash)
+		e.add_field(name="XP", value=profile.weapon)
+		e.add_field(name="Level", value=(profile.weapon)
 
 		await ctx.send(embed=e)
 
