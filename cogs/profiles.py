@@ -111,13 +111,18 @@ class Profile:
 		member = member or ctx.author
 		profile = await self.get_profile(ctx, member=member)
 
-		e = discord.Embed(title=str(profile), color=member.top_role.colour or ctx.me.top_role.colour)
+		e = discord.Embed(title=str(profile), color=member.top_role.colour if member.top_role.color else ctx.me.top_role.colour)
 		e.description = profile.bio
 		e.set_thumbnail(url=member.avatar_url)
 
 		e.add_field(name="Weapon", value=str(profile.weapon))
 
 		await ctx.send(embed=e)
+
+	@profile.command(hidden=True)
+	async def make(self, ctx):
+		await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
+		await ctx.invoke(self.profile)
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
