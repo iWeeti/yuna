@@ -42,8 +42,8 @@ class Anime():
                         except:
                             pass
                         await ctx.send(embed=e)
-                except:
-                    await ctx.send("Couldn't find that anime!")
+            except:
+                await ctx.send("Couldn't find that anime!")
             
 
     @commands.command()
