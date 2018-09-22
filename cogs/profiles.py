@@ -193,9 +193,9 @@ class Profile:
 
 	@commands.command()
 	async def weaponinfo(self, ctx, id:int=0):
-		weapon = self.get_weapon(id)
-
-		if not weapon:
+		try:
+			weapon = self.get_weapon(id)
+		except KeyError:
 			return await ctx.send(f'{ctx.tick(False)} That weapon was not found.')
 
 		e = discord.Embed(title=str(weapon), description=weapon.description, colour=ctx.author.top_role.colour)
