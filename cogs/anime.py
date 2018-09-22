@@ -20,7 +20,7 @@ class Anime():
                     s.close()
                     resp = await r.json()
                     syn = str(resp['data'][0]['attributes']['synopsis'])
-                    e = discord.Embed(title=resp['data'][0]['attributes']['titles']['en'], colour=0xff9f68, description=f"{syn[:-180}...")
+                    e = discord.Embed(title=resp['data'][0]['attributes']['titles']['en'], colour=0xff9f68, description=f"{syn[:-180]}...")
                     e.set_author(name="Anime Search", icon_url="https://lh3.googleusercontent.com/fJbHIg6QrqzVD18nUvHXDHA-l3X9FVz5qUNhESnKKRdCspaUnXt4L83eD7nnWZZyzw")
                     #e.add_field(name="Synopsis:", value=f"{syn[:-90]}...")
                     try:
