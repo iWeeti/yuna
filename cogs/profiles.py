@@ -105,6 +105,8 @@ class Profile:
 		member = member or ctx.author
 		id = member.id
 		record = await self.bot.pool.fetchrow(f'select * from profiles where id={id}')
+		if record['id'] is None:
+			return None
 		return ProfileInfo(self.bot, ctx, member.name, record)
 
 	@commands.group(invoke_without_command=True)
