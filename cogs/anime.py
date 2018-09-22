@@ -1,17 +1,51 @@
 import discord
 from discord.ext import commands
 import nekos
+import aiohttp
 
 class Anime():
     """These commands work with nekos.life api."""
     def __init__(self, bot):
         self.bot = bot
+        
+    @commands.command()
+    async def anime(self, ctx, *, query=None):
+        if not query:
+            await ctx.send(f"{ctx.tick(False)} You need to specify what anime you want to search for!")
+        else:
+            async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as s:
+                q = query.replace(" ", "+")
+                async with s.get(f"https://kitsu.io/api/edge/anime?page[limit]=1&filter[text]={q}") as r:
+                    s.close()
+                    resp = await r.json()
+                    e = discord.Embed(title=resp['data'][0]['titles']['en'], colour=0xff9f68, description=resp['data'][0]['titles']['ja_jp'])
+                    e.set_author(name="Anime Search", icon_url="https://lh3.googleusercontent.com/fJbHIg6QrqzVD18nUvHXDHA-l3X9FVz5qUNhESnKKRdCspaUnXt4L83eD7nnWZZyzw")
+                    e.add_field(name="Synopsis:", value=resp['data'][0]['synopsis'])
+                    try:
+                        e.add_field(name="Rated:", value=f"{resp['data'][0]['ageRating']} ({resp['data'][0]['ageRatingGuide']})")
+                    except:
+                        pass
+                    try:
+                        e.add_field(name="Episodes:", value=resp['data'][0]['episodeCount'])
+                    except:
+                        pass
+                    e.add_field(name="Aired:", value=resp['data'][0]['startDate'])
+                    try:
+                        e.set_thumbnail(url=resp['data'][0]['posterImage']['medium'])
+                    except:
+                        pass
+                    try:
+                        e.set_image(url=resp['data'][0]['coverImage']['tiny'])
+                    except:
+                        pass
+                    await ctx.send(embed=e)
+            
 
     @commands.command()
     async def tickle(self, ctx, *, member: discord.Member=None):
         """Ticles a member you specify."""
         if member is None:
-            await ctx.send('You need to specify a user you want to tickle.')
+            await ctx.send(f'{ctx.tick(False)} You need to specify a user you want to tickle.')
             return
         e = discord.Embed(title="{} has been tickled by {}. UwU".format(member.name, ctx.author.name), color=ctx.author.top_role.color)
         e.set_image(url=nekos.img('tickle'))
@@ -21,7 +55,7 @@ class Anime():
     async def feed(self, ctx, *, member: discord.Member=None):
         """Feeds a member you specify."""
         if member is None:
-            await ctx.send('You need to specify a user you want to feed.')
+            await ctx.send(f'{ctx.tick(False)} You need to specify a user you want to feed.')
             return
         if member.id == ctx.author.id:
             await ctx.send('Go eat on your own you don\'t need help with that.')
@@ -74,7 +108,7 @@ class Anime():
     async def poke(self, ctx, member: discord.Member=None):
         """Pokes someone you mention."""
         if member is None:
-            await ctx.send('You need to tell who to poke.')
+            await ctx.send(f'{ctx.tick(False)} You need to specify who to poke.')
             return
         if member.id == ctx.author.id:
             await ctx.send('I find this very weird. I mean like even weirder than me...')
@@ -87,7 +121,7 @@ class Anime():
     async def slap(self, ctx, member: discord.Member=None):
         """Slaps someone you mention."""
         if member is None:
-            await ctx.send('You need to tell who to slap.')
+            await ctx.send(f'{ctx.tick(False)} You need to specify who to slap.')
             return
         if member.id == ctx.author.id:
             await ctx.send('I find this very weird. Why would you slap yourself?\nDid you do something stupid?')
@@ -100,7 +134,7 @@ class Anime():
     async def pat(self, ctx, member: discord.Member=None):
         """Pats someone you mention."""
         if member is None:
-            await ctx.send('You need to tell who to pat.')
+            await ctx.send(f'{ctx.tick(False)} You need to specify who to pat.')
             return
         if member.id == ctx.author.id:
             await ctx.send('Why would you pat yourself? Are you lonely?')
@@ -113,7 +147,7 @@ class Anime():
     async def kiss(self, ctx, member: discord.Member=None):
         """Kisses someone you mention."""
         if member is None:
-            await ctx.send('You need to tell who to kiss.')
+            await ctx.send(f'{ctx.tick(False)} You need to specify who to kiss.')
             return
         if member.id == ctx.author.id:
             await ctx.send('How is that even possible?')
@@ -126,7 +160,7 @@ class Anime():
     async def hug(self, ctx, member: discord.Member=None):
         """Hugs someone you mention."""
         if member is None:
-            await ctx.send('You need to tell who to hug.')
+            await ctx.send(f'{ctx.tick(False)} You need to specify who to hug.')
             return
         if member.id == ctx.author.id:
             await ctx.send('You can try to put your arms around you if you think it is enough to hug yourself?')
@@ -139,7 +173,7 @@ class Anime():
     async def cuddle(self, ctx, member: discord.Member=None):
         """Cuddles someone you mention."""
         if member is None:
-            await ctx.send('You need to tell who to cuddle with.')
+            await ctx.send(f'{ctx.tick(False)} You need to specify who to cuddle with.')
             return
         if member.id == ctx.author.id:
             await ctx.send('How is that even possible?')
