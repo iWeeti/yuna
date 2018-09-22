@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import nekos
 import aiohttp
-import requests
 
 class Anime():
     """These commands work with nekos.life api."""
@@ -15,14 +14,11 @@ class Anime():
         if not query:
             await ctx.send(f"{ctx.tick(False)} You need to specify what anime you want to search for!")
         else:
-            async with aiohttp.ClientSession(headers={'Accept': 'application/json'}) as s:
+            async with aiohttp.ClientSession(headers={'content-type': 'application/json'}) as s:
                 q = query.replace(" ", "+")
                 async with s.get(f"https://kitsu.io/api/edge/anime?page[limit]=1&filter[text]={q}") as r:
                     s.close()
                     res = await r.json()
-                    r = requests.post(f"https://hastebin.com/documents",
-                    data=res.encode('utf-8')).json()
-                    await ctx.send(":point_right: https://hastebin.com/" + r['key'])
                     resp = ['data']
                     e = discord.Embed(title=resp[0]['titles']['en'], colour=0xff9f68, description=resp[0]['titles']['ja_jp'])
                     e.set_author(name="Anime Search", icon_url="https://lh3.googleusercontent.com/fJbHIg6QrqzVD18nUvHXDHA-l3X9FVz5qUNhESnKKRdCspaUnXt4L83eD7nnWZZyzw")
