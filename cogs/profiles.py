@@ -121,7 +121,9 @@ class Profile:
 
 	@profile.command(hidden=True)
 	async def make(self, ctx):
-		await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
+		profile = await self.get_profile(ctx)
+		if not profile:
+			await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
 		await ctx.invoke(self.profile)
 
 def setup(bot):

@@ -51,7 +51,7 @@ class Owner:
         x = await self.run_cmd(code)
         await ctx.send(f'```bash\n{x}\n```')
 
-    @commands.command(hidden=True)
+    @commands.command(hidden=True, aliases=['pull'])
     async def update(self, ctx):
         msg = await ctx.send('Updating...')
         x = await self.run_cmd('git pull')
