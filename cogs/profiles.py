@@ -57,6 +57,14 @@ class Item:
 	def __init__(self, item_id):
 		self.item_id
 
+class Weapon:
+	def __init__(self, weapon_id):
+		self.name = weapon_names[weapon_id]
+		self.damage = weapon_damages[weapon_id]
+
+	def __str__(self):
+		return f'{self.name}: {self.damage}DMG' if self.name else 'No weapon'
+
 class ProfileInfo:
 	def __init__(self, bot, ctx, name, record):
 		self.bot = bot
@@ -64,7 +72,7 @@ class ProfileInfo:
 		self.name = name
 		self.record = record
 		self.id = record['id']
-		self.weapon = record['weapon']
+		self.weapon = Weapon(record['weapon'])
 
 	def __str__(self):
 		return f'Profile of {self.name}'
@@ -93,7 +101,7 @@ class Profile:
 	async def profile(self, ctx, *, member: DisambiguateMember = None):
 		member = member or ctx.author
 		profile = await self.get_profile(ctx, member=member)
-		await ctx.send(profile.weapon or 'No weapon' + str(profile))
+		await ctx.send(str(profile.weapon))
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
