@@ -124,7 +124,7 @@ class Profile:
 		profile = await self.get_profile(ctx)
 		if not profile:
 			await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
-		await ctx.invoke(self.profile member=ctx.author)
+		await ctx.invoke(self.profile, member=ctx.author)
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
