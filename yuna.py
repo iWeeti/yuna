@@ -59,7 +59,7 @@ class Yuna(commands.AutoShardedBot):
 			if command is None:
 			    p = await HelpPaginator.from_bot(ctx)
 			else:
-			    entity = self.bot.get_cog(command) or self.bot.get_command(command)
+			    entity = self.get_cog(command) or self.get_command(command)
 
 			    if entity is None:
 			        clean = command.replace('@', '@\u200b')
