@@ -193,7 +193,7 @@ class Profile:
 			await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
 		await ctx.invoke(self.profile, member=ctx.author)
 
-	
+
 
 
 	@profile.command()
@@ -224,8 +224,6 @@ class Profile:
 		e.add_field(name="Price", value=weapon.price)
 
 		await ctx.send(embed=e)
-
-	z
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
