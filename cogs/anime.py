@@ -18,7 +18,9 @@ class Anime():
                 q = query.replace(" ", "+")
                 async with s.get(f"https://kitsu.io/api/edge/anime?page[limit]=1&filter[text]={q}") as r:
                     s.close()
-                    resp = await r.json()
+                    res = await r.json()
+                    await ctx.send(res[:-400])
+                    resp = ['data']
                     e = discord.Embed(title=resp[0]['titles']['en'], colour=0xff9f68, description=resp[0]['titles']['ja_jp'])
                     e.set_author(name="Anime Search", icon_url="https://lh3.googleusercontent.com/fJbHIg6QrqzVD18nUvHXDHA-l3X9FVz5qUNhESnKKRdCspaUnXt4L83eD7nnWZZyzw")
                     e.add_field(name="Synopsis:", value=resp[0]['synopsis'])
