@@ -20,7 +20,7 @@ class Fun():
         
         if len(_fig) > 1300:
             await ctx.send(f"{ctx.tick(False)} That message is too long!")
-        await ctx.send(f"Here you go!\n```{_fig}```")
+        await ctx.send(f"```{_fig}```", content=f"{ctx.tick(True)} Done!")
       
     
         
