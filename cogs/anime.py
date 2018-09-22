@@ -18,26 +18,25 @@ class Anime():
                 q = query.replace(" ", "+")
                 async with s.get(f"https://kitsu.io/api/edge/anime?page[limit]=1&filter[text]={q}") as r:
                     s.close()
-                    res = await r.json()
-                    resp = ['data']
-                    e = discord.Embed(title=resp[0]['titles']['en'], colour=0xff9f68, description=resp[0]['titles']['ja_jp'])
+                    resp = await r.json()
+                    e = discord.Embed(title=resp['data'][0]['titles']['en'], colour=0xff9f68, description=resp['data'][0]['titles']['ja_jp'])
                     e.set_author(name="Anime Search", icon_url="https://lh3.googleusercontent.com/fJbHIg6QrqzVD18nUvHXDHA-l3X9FVz5qUNhESnKKRdCspaUnXt4L83eD7nnWZZyzw")
-                    e.add_field(name="Synopsis:", value=resp[0]['synopsis'])
+                    e.add_field(name="Synopsis:", value=resp['data'][0]['synopsis'])
                     try:
-                        e.add_field(name="Rated:", value=f"{resp[0]['ageRating']} ({resp[0]['ageRatingGuide']})")
+                        e.add_field(name="Rated:", value=f"{resp['data'][0]['ageRating']} ({resp[0]['ageRatingGuide']})")
                     except:
                         pass
                     try:
-                        e.add_field(name="Episodes:", value=resp[0]['episodeCount'])
+                        e.add_field(name="Episodes:", value=resp['data'][0]['episodeCount'])
                     except:
                         pass
-                    e.add_field(name="Aired:", value=resp[0]['startDate'])
+                    e.add_field(name="Aired:", value=resp['data'][0]['startDate'])
                     try:
-                        e.set_thumbnail(url=resp[0]['posterImage']['medium'])
+                        e.set_thumbnail(url=resp['data'][0]['posterImage']['medium'])
                     except:
                         pass
                     try:
-                        e.set_image(url=resp[0]['coverImage']['tiny'])
+                        e.set_image(url=resp['data'][0]['coverImage']['tiny'])
                     except:
                         pass
                     await ctx.send(embed=e)
