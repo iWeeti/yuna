@@ -88,6 +88,7 @@ class Weapon:
 
 	def __str__(self):
 		return f'{self.name}: {self.damage}DMG (ID:{self.id})' if self.name else 'No weapon'
+	
 
 class ProfileInfo:
 	def __init__(self, bot, ctx, name, record):
@@ -101,9 +102,18 @@ class ProfileInfo:
 		self.cash = record['cash'] or 0
 		self.xp = record['xp'] or 0
 		self.level = record['level'] or 0
+		self._inv =  record['inv'] or 'Nothing in inventory'
 
 	def __str__(self):
 		return f'Profile of {self.name}'
+
+	@property
+	def inv(self):
+		items = []
+		for index, id in enumerate(self._inv):
+			items.append(Item(id))
+		return self.item
+	
 
 	@staticmethod
 	def _get_level_xp(n):
@@ -183,6 +193,7 @@ class Profile:
 			e.add_field(name="Cash", value=f'${profile.cash}')
 			e.add_field(name="XP", value=profile.xp)
 			e.add_field(name="Level", value=profile.level)
+			e.add_field(name="Inventory", value=profile.inv or 'Nothing in inventory')
 
 			await ctx.send(embed=e)
 
