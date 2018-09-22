@@ -21,7 +21,7 @@ class Anime():
                     s.close()
                     res = await r.json()
                     r = requests.post(f"https://hastebin.com/documents",
-                    data=res).json()
+                    data=res.encode('utf-8')).json()
                     await ctx.send(":point_right: https://hastebin.com/" + r['key'])
                     resp = ['data']
                     e = discord.Embed(title=resp[0]['titles']['en'], colour=0xff9f68, description=resp[0]['titles']['ja_jp'])
