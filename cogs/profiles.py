@@ -98,10 +98,16 @@ class ProfileInfo:
 		self.cash = record['cash'] or 0
 		self.xp = record['xp'] or 0
 		self.level = record['level'] or 0
-		self.apples = record['apples']
+		self.apples = record['apples'] or ''
 
 	def __str__(self):
-		return f'Profile of {self.name}'		
+		return f'Profile of {self.name}'
+
+	@property
+	def inv(self):
+		inv = f'{self.apples}'
+		return inv
+	
 
 	@staticmethod
 	def _get_level_xp(n):
@@ -181,7 +187,7 @@ class Profile:
 			e.add_field(name="Cash", value=f'${profile.cash}')
 			e.add_field(name="XP", value=profile.xp)
 			e.add_field(name="Level", value=profile.level)
-			e.add_field(name="Inventory", value=profile.inv_string)
+			e.add_field(name="Inventory", value=profile.inv)
 
 			await ctx.send(embed=e)
 
