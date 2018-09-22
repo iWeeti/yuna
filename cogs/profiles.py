@@ -54,9 +54,20 @@ class DisambiguateMember(commands.IDConverter):
             raise commands.BadArgument("Could not find this member. Note this is case sensitive.")
         return result
 
+ITEMS = {
+	0: {
+		'name': 'Apple',
+		'description': 'Red apple fallen from the tree...'
+		'price': 5,
+	},
+}
+
 class Item:
-	def __init__(self, item_id):
-		self.item_id
+	def __init__(self, id):
+		self.id
+		self.name = ITEMS[id]['name']
+		self.description = ITEMS[id]['description']
+		self.price = ITEMS[id]['price']
 
 WEAPONS = {
 	0: {
@@ -113,7 +124,14 @@ class ProfileInfo:
 		for index, id in enumerate(self._inv):
 			items.append(Item(id))
 		return self.item
-	
+
+	@property
+	def inv_string(self):
+		items = []
+		for index, id in enumerate(self._inv):
+			items.append(Item(id))
+		return ", ".join(items) or 'Nothing in inventory'
+		
 
 	@staticmethod
 	def _get_level_xp(n):
@@ -193,7 +211,7 @@ class Profile:
 			e.add_field(name="Cash", value=f'${profile.cash}')
 			e.add_field(name="XP", value=profile.xp)
 			e.add_field(name="Level", value=profile.level)
-			e.add_field(name="Inventory", value=profile.inv or 'Nothing in inventory')
+			e.add_field(name="Inventory", value=profile.inv_string)
 
 			await ctx.send(embed=e)
 
@@ -203,9 +221,6 @@ class Profile:
 		if not profile:
 			await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
 		await ctx.invoke(self.profile, member=ctx.author)
-
-
-
 
 	@profile.command()
 	async def bio(self, ctx, *, bio:str=None):
