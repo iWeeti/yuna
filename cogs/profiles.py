@@ -165,21 +165,22 @@ class Profile:
 
 	@commands.group(invoke_without_command=True)
 	async def profile(self, ctx, *, member: DisambiguateMember = None):
-		member = member or ctx.author
-		profile = await self.get_profile(ctx, member=member)
-		if member is not ctx.author and not profile:
-			return await ctx.send(f'{ctx.tick(False)} This member does not have a profile.')
+		if not ctx.invoked_subcommand:
+			member = member or ctx.author
+			profile = await self.get_profile(ctx, member=member)
+			if member is not ctx.author and not profile:
+				return await ctx.send(f'{ctx.tick(False)} This member does not have a profile.')
 
-		e = discord.Embed(title=str(profile), color=member.top_role.colour if member.top_role.color else ctx.me.top_role.colour)
-		e.description = profile.bio
-		e.set_thumbnail(url=member.avatar_url)
+			e = discord.Embed(title=str(profile), color=member.top_role.colour if member.top_role.color else ctx.me.top_role.colour)
+			e.description = profile.bio
+			e.set_thumbnail(url=member.avatar_url)
 
-		e.add_field(name="Weapon", value=str(profile.weapon))
-		e.add_field(name="Cash", value=f'${profile.cash}')
-		e.add_field(name="XP", value=profile.xp)
-		e.add_field(name="Level", value=profile.level)
+			e.add_field(name="Weapon", value=str(profile.weapon))
+			e.add_field(name="Cash", value=f'${profile.cash}')
+			e.add_field(name="XP", value=profile.xp)
+			e.add_field(name="Level", value=profile.level)
 
-		await ctx.send(embed=e)
+			await ctx.send(embed=e)
 
 	@profile.command(hidden=True)
 	async def make(self, ctx):
@@ -197,7 +198,7 @@ class Profile:
 
 		await profile.edit_field(bio=bio)
 		await ctx.send(f'{ctx.tick(True)} BIO edited.')
-		await ctx.send(profile.__dict__())
+		await ctx.send(profile.__dict__)
 
 	def get_weapon(self, id):
 		return Weapon(id)
