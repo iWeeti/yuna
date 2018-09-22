@@ -82,9 +82,25 @@ class ProfileInfo:
 		self.id = record['id']
 		self.weapon = Weapon(record['weapon'])
 		self.bio = record['bio']
+		self.cash = record['cash'] or 0
+		self.xp = record['xp'] or 0
+		self.level = record['level'] or 0
 
 	def __str__(self):
 		return f'Profile of {self.name}'
+
+	@staticmethod
+	def _get_level_xp(n):
+	    return 5*(n**2)+50*n+100
+
+	@staticmethod
+	def _get_level_from_xp(xp):
+	    remaining_xp = int(xp)
+	    level = 0
+	    while remaining_xp >= Profile._get_level_xp(level):
+	        remaining_xp -= Profile._get_level_xp(level)
+	        level += 1
+	    return level
 
 	async def edit_field(self, **fields):
 		keys = ', '.join(fields)
@@ -96,6 +112,24 @@ class ProfileInfo:
 		         """
 
 		await self.ctx.db.execute(query, self.id, *fields.values())
+
+	async def increase_xp(self, ctx):
+	    if self.is_ratelimited:
+	        return
+	    if not self.last_xp_time:
+	        _now = dtime.utcnow()
+	        await self.edit_field(ctx, last_xp_time=repr(_now))
+	    else:
+	        last_xp_time = dtime.utcnow()
+	        await self.edit_field(ctx, last_xp_time=repr(last_xp_time))
+	    new_xp = self.xp + random.randint(15, 25)
+	    await self.edit_field(self.ctx, experience=new_xp)
+	    lvl = self.level
+	    new_lvl = Profile._get_level_from_xp(self.xp)
+	    await self.edit_field(ctx, level=new_lvl)
+	    if new_lvl != lvl:
+	        if self.announce_level and not ctx.guild.id == 264445053596991498:
+	            await ctx.send(f'Good job {ctx.author.display_name} you just leveled up to level {new_lvl}!')
 
 class Profile:
 	def __init__(self, bot):
