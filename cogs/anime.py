@@ -19,9 +19,10 @@ class Anime():
                 async with s.get(f"https://kitsu.io/api/edge/anime?page[limit]=1&filter[text]={q}") as r:
                     s.close()
                     resp = await r.json()
+                    syn = str(resp['data'][0]['attributes']['synopsis'])
                     e = discord.Embed(title=resp['data'][0]['attributes']['titles']['en'], colour=0xff9f68, description=resp['data'][0]['attributes']['titles']['ja_jp'])
                     e.set_author(name="Anime Search", icon_url="https://lh3.googleusercontent.com/fJbHIg6QrqzVD18nUvHXDHA-l3X9FVz5qUNhESnKKRdCspaUnXt4L83eD7nnWZZyzw")
-                    e.add_field(name="Synopsis:", value=resp['data'][0]['attributes']['synopsis'])
+                    e.add_field(name="Synopsis:", value=f"{syn[:-90]}...")
                     try:
                         e.add_field(name="Rated:", value=f"{resp['data'][0]['attributes']['ageRating']} ({resp['data'][0]['attributes']['ageRatingGuide']})")
                     except:
