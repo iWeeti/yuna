@@ -65,8 +65,8 @@ class Weapon:
 		0: 0
 	}
 	def __init__(self, weapon_id):
-		self.name = weapon_names[weapon_id]
-		self.damage = weapon_damages[weapon_id]
+		self.name = weapon_names[weapon_id] or 'Not defined'
+		self.damage = weapon_damages[weapon_id] or 0
 
 	def __str__(self):
 		return f'{self.name}: {self.damage}DMG' if self.name else 'No weapon'
