@@ -193,8 +193,14 @@ class Profile:
 			await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
 		await ctx.invoke(self.profile, member=ctx.author)
 
+	@commands.command()
+	async def edit_field(self, ctx, member:discord.Member, field:str, value:str):
+		profile = await self.get_profile(ctx, member)
+		await profile.edit_field(field=value)
+		await ctx.send(ctx.tick(True))
+
 	@profile.command()
-	async def bio(self, ctx, bio:str=None):
+	async def bio(self, ctx, *, bio:str=None):
 		profile = await self.get_profile(ctx)
 
 		if not bio:
