@@ -57,7 +57,7 @@ class DisambiguateMember(commands.IDConverter):
 ITEMS = {
 	0: {
 		'name': 'Apple',
-		'description': 'Red apple fallen from the tree...'
+		'description': 'Red apple fallen from a tree...',
 		'price': 5,
 	},
 }
