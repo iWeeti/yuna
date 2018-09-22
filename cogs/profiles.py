@@ -58,17 +58,20 @@ class Item:
 	def __init__(self, item_id):
 		self.item_id
 
-WEAPON_NAMES = {
-		0: 'No weapon'
+WEAPONS = {
+	0: {
+		'name': 'No weapon',
+		'damage': 0,
+		'description', 'No weapon',
+		'price', 0
 	}
-WEAPON_DAMAGES = {
-	0: 0
 }
-
 class Weapon:
 	def __init__(self, weapon_id):
-		self.name = WEAPON_NAMES[weapon_id] or 'Not defined'
-		self.damage = WEAPON_DAMAGES[weapon_id] or 0
+		self.name = WEAPONS[weapon_id]['name'] or 'Not defined'
+		self.damage = WEAPONS[weapon_id]['damage'] or 0
+		self.description = WEAPONS[weapon_id]['description']
+		self.price = WEAPONS[weapon_id]['price']
 
 	def __str__(self):
 		return f'{self.name}: {self.damage}DMG' if self.name else 'No weapon'
