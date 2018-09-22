@@ -105,7 +105,7 @@ class ProfileInfo:
 
 	@property
 	def inv(self):
-		inv = f'{self.apples} '
+		inv = f'{self.apples}'
 		return inv
 	
 
