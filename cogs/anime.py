@@ -92,7 +92,7 @@ class Anime():
 
     @commands.command()
     async def avatar(self, ctx):
-        """Gives you a avatar image."""
+        """Gives you an avatar image."""
         e = discord.Embed(color=ctx.author.top_role.color)
         e.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
         e.set_image(url=nekos.img('avatar'))
