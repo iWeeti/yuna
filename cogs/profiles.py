@@ -120,15 +120,21 @@ class ProfileInfo:
 	@property
 	def inv(self):
 		items = []
-		for index, id in enumerate(self._inv):
-			items.append(Item(id))
-		return self.item
+		try:
+			for index, id in enumerate(self._inv):
+				items.append(Item(id))
+		except TypeError:
+			return None
+		return self.items
 
 	@property
 	def inv_string(self):
 		items = []
-		for index, id in enumerate(self._inv):
-			items.append(Item(id))
+		try:
+			for index, id in enumerate(self._inv):
+				items.append(Item(id))
+		except TypeError:
+			return None
 		return ", ".join(items) or 'Nothing in inventory'
 		
 
