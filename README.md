@@ -1,4 +1,4 @@
-### Yuna
+## Yuna
 ##### Yuna is from the movie, Sword Art Online: Ordinal Scale
 
 * Multipurpose 
