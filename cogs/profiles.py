@@ -126,13 +126,10 @@ class ProfileInfo:
 		            SET {keys} = {values}
 		            where id=$1;
 		         """
-		try:
-			_values = [_ for _ in fields.values()]
+		_values = [_ for _ in fields.values()]
 
-			for key, value in fields:
-				self.__dict__[key] = _values[value]
-		except Exception as e:
-			print(e)
+		for key, value in fields:
+			self.__dict__[key] = _values[value]
 		await self.ctx.db.execute(query, self.id, *fields.values())
 
 	async def increase_xp(self, ctx):
