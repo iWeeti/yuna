@@ -151,6 +151,8 @@ class Profile:
 	async def profile(self, ctx, *, member: DisambiguateMember = None):
 		member = member or ctx.author
 		profile = await self.get_profile(ctx, member=member)
+		if member is not ctx.author and not profile:
+			return await ctx.send(f'{ctx.tick(False)} This member does not have a profile.')
 
 		e = discord.Embed(title=str(profile), color=member.top_role.colour if member.top_role.color else ctx.me.top_role.colour)
 		e.description = profile.bio
