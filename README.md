@@ -4,7 +4,7 @@
 * Multipurpose 
 * Music
 * Economy
-and much much more.. :^)
+> and much much more.. :^)
    
 #### Yuna is still in development.
 > More udpdates coming soon.
