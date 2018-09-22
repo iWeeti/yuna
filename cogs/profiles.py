@@ -188,6 +188,17 @@ class Profile:
 			await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
 		await ctx.invoke(self.profile, member=ctx.author)
 
+	@profile.command()
+	async def bio(self, ctx, bio:str=None):
+		profile = await self.get_profile(ctx)
+
+		if not bio:
+			return await ctx.send(f'{ctx.tick(False)} You forgot the most important part the actual BIO.')
+
+		await profile.edit_field(bio=bio)
+		await ctx.send(f'{ctx.tick(True)} BIO edited.')
+		await ctx.send(profile.__dict__())
+
 	def get_weapon(self, id):
 		return Weapon(id)
 
