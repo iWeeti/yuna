@@ -64,7 +64,19 @@ WEAPONS = {
 		'damage': 0,
 		'description': 'No weapon',
 		'price': 0
-	}
+	},
+	1: {
+		'name': 'iWeeti\'s sword',
+		'damage': 500,
+		'description': 'Special made sword for iWeeti',
+		'price': 9999999
+	},
+	1: {
+		'name': 'lukee\'s sword',
+		'damage': 500,
+		'description': 'Special made sword for lukee',
+		'price': 9999999
+	},
 }
 class Weapon:
 	def __init__(self, weapon_id):
@@ -162,7 +174,7 @@ class Profile:
 		e.set_thumbnail(url=member.avatar_url)
 
 		e.add_field(name="Weapon", value=str(profile.weapon))
-		e.add_field(name="Cash", value=profile.cash)
+		e.add_field(name="Cash", value=f'${profile.cash}')
 		e.add_field(name="XP", value=profile.xp)
 		e.add_field(name="Level", value=profile.level)
 
