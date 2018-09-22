@@ -134,8 +134,8 @@ class ProfileInfo:
 			for index, id in enumerate(self._inv):
 				items.append(Item(id))
 		except TypeError:
-			return None
-		return ", ".join(items) or 'Nothing in inventory'
+			return 'Nothing in inventory'
+		return ", ".join(items)
 		
 
 	@staticmethod
