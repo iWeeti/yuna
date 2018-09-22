@@ -18,8 +18,8 @@ class Fun():
             
         _fig = figlet_format(text)
         
-        if len(_fig) > 1700:
-            await ctx.send(f"{ctx.tick(False)} The message is too long!")
+        if len(_fig) > 1300:
+            await ctx.send(f"{ctx.tick(False)} That message is too long!")
         await ctx.send(f"Here you go!\n```{_fig}```")
       
     
