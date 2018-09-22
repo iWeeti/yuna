@@ -63,7 +63,7 @@ WEAPONS = {
 		'name': 'No weapon',
 		'damage': 0,
 		'description', 'No weapon',
-		'price', 0
+		'price': 0
 	}
 }
 class Weapon:
