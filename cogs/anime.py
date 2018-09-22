@@ -10,6 +10,7 @@ class Anime():
         
     @commands.command()
     async def anime(self, ctx, *, query=None):
+        """Search for anime"""
         if not query:
             await ctx.send(f"{ctx.tick(False)} You need to specify what anime you want to search for!")
         else:
@@ -18,7 +19,7 @@ class Anime():
                 async with s.get(f"https://kitsu.io/api/edge/anime?page[limit]=1&filter[text]={q}") as r:
                     s.close()
                     resp = await r.json()
-                    e = discord.Embed(title=resp['data'][0]['titles']['en'], colour=0xff9f68, description=resp['data'][0]['titles']['ja_jp'])
+                    e = discord.Embed(title=resp[0]['titles']['en'], colour=0xff9f68, description=resp['data'][0]['titles']['ja_jp'])
                     e.set_author(name="Anime Search", icon_url="https://lh3.googleusercontent.com/fJbHIg6QrqzVD18nUvHXDHA-l3X9FVz5qUNhESnKKRdCspaUnXt4L83eD7nnWZZyzw")
                     e.add_field(name="Synopsis:", value=resp['data'][0]['synopsis'])
                     try:
