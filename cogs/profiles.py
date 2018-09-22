@@ -67,7 +67,7 @@ class ProfileInfo:
 
 	async def __str__(self):
 		member = self.ctx.guild.get_member(self.id) or await self.bot.get_user_info(self.id)
-		return f'Profile of {user.display_name}'
+		return f'Profile of {member.display_name}'
 
 	async def edit_field(self, **fields):
 		keys = ', '.join(fields)
@@ -94,7 +94,7 @@ class Profile:
 	async def profile(self, ctx, *, member: DisambiguateMember = None):
 		member = member or ctx.author
 		profile = await self.get_profile(ctx, id=member.id)
-		await ctx.send(profile.weapon or 'No weapon' + str(profile))
+		await ctx.send(profile.weapon or 'No weapon' + await str(profile))
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
