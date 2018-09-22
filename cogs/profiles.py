@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+import re
 
 class DisambiguateMember(commands.IDConverter):
     async def convert(self, ctx, argument):
