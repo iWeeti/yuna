@@ -11,7 +11,9 @@ class Fun():
     async def ascii(self, ctx, *, text):
         text = text.replace(" ", "+")
         r = requests.get(f"http://artii.herokuapp.com/make?text={text}")
-        await ctx.send(f"```{r.content}```")
+        rc = r.content
+        rc = rc.replace("\n", "\n")
+        await ctx.send(f"```{rc}```")
       
     
         
