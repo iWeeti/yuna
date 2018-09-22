@@ -71,7 +71,7 @@ WEAPONS = {
 		'description': 'Special made sword for iWeeti',
 		'price': 9999999
 	},
-	1: {
+	2: {
 		'name': 'lukee\'s sword',
 		'damage': 500,
 		'description': 'Special made sword for lukee',
