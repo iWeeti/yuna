@@ -93,7 +93,7 @@ class Profile:
 	async def profile(self, ctx, *, member: DisambiguateMember = None):
 		member = member or ctx.author
 		profile = await self.get_profile(ctx, id=member.id)
-		await ctx.send(profile.weapon)
+		await ctx.send(profile.weapon or 'No weapon' + str(profile))
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
