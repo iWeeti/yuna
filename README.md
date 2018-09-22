@@ -1,6 +1,6 @@
 ### Yuna
-##### Yuna is for the guys and girls who like swrod art online.
-##### Sword art online is an anime seried.
+##### Yuna is for the guys and girls who like Sword Art Online.
+##### Sword Art Online is an anime series.
 
 1. Profile
    * yu profile | Shows your profile, creates a one if you don't have.
