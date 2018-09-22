@@ -8,39 +8,42 @@ class Anime():
     def __init__(self, bot):
         self.bot = bot
         
-    @commands.command()
+    @commands.command(aliases=['animesearch'])
     async def anime(self, ctx, *, query=None):
         """Search for anime"""
         if not query:
             await ctx.send(f"{ctx.tick(False)} You need to specify what anime you want to search for!")
         else:
-            async with aiohttp.ClientSession(headers={'content-type': 'application/json'}) as s:
-                q = query.replace(" ", "+")
-                async with s.get(f"https://kitsu.io/api/edge/anime?page[limit]=1&filter[text]={q}") as r:
-                    s.close()
-                    resp = await r.json()
-                    syn = str(resp['data'][0]['attributes']['synopsis'])
-                    e = discord.Embed(title=resp['data'][0]['attributes']['titles']['en'], colour=0xff9f68, description=f"{syn[:-180]}...")
-                    e.set_author(name="Anime Search", icon_url="https://lh3.googleusercontent.com/fJbHIg6QrqzVD18nUvHXDHA-l3X9FVz5qUNhESnKKRdCspaUnXt4L83eD7nnWZZyzw")
-                    #e.add_field(name="Synopsis:", value=f"{syn[:-90]}...")
-                    try:
-                        e.add_field(name="Rated:", value=f"{resp['data'][0]['attributes']['ageRating']} ({resp['data'][0]['attributes']['ageRatingGuide']})")
-                    except:
-                        pass
-                    try:
-                        e.add_field(name="Episodes:", value=resp['data'][0]['attributes']['episodeCount'])
-                    except:
-                        pass
-                    e.add_field(name="Aired:", value=resp['data'][0]['attributes']['startDate'])
-                    try:
-                        e.set_thumbnail(url=resp['data'][0]['attributes']['posterImage']['medium'])
-                    except:
-                        pass
-                    try:
-                        e.set_image(url=resp['data'][0]['attributes']['coverImage']['tiny'])
-                    except:
-                        pass
-                    await ctx.send(embed=e)
+            try:
+                async with aiohttp.ClientSession(headers={'content-type': 'application/json'}) as s:
+                    q = query.replace(" ", "+")
+                    async with s.get(f"https://kitsu.io/api/edge/anime?page[limit]=1&filter[text]={q}") as r:
+                        s.close()
+                        resp = await r.json()
+                        syn = str(resp['data'][0]['attributes']['synopsis'])
+                        e = discord.Embed(title=resp['data'][0]['attributes']['titles']['en'], colour=0xff9f68, description=f"{syn[:-180]}...")
+                        e.set_author(name="Anime Search", icon_url="https://lh3.googleusercontent.com/fJbHIg6QrqzVD18nUvHXDHA-l3X9FVz5qUNhESnKKRdCspaUnXt4L83eD7nnWZZyzw")
+                        #e.add_field(name="Synopsis:", value=f"{syn[:-90]}...")
+                        try:
+                            e.add_field(name="Rated:", value=f"{resp['data'][0]['attributes']['ageRating']} ({resp['data'][0]['attributes']['ageRatingGuide']})")
+                        except:
+                            pass
+                        try:
+                            e.add_field(name="Episodes:", value=resp['data'][0]['attributes']['episodeCount'])
+                        except:
+                            pass
+                        e.add_field(name="Aired:", value=resp['data'][0]['attributes']['startDate'])
+                        try:
+                            e.set_thumbnail(url=resp['data'][0]['attributes']['posterImage']['medium'])
+                        except:
+                            pass
+                        try:
+                            e.set_image(url=resp['data'][0]['attributes']['coverImage']['tiny'])
+                        except:
+                            pass
+                        await ctx.send(embed=e)
+                except:
+                    await ctx.send("Couldn't find that anime!")
             
 
     @commands.command()
