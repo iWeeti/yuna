@@ -58,9 +58,10 @@ class Item:
 		self.item_id
 
 class ProfileInfo:
-	def __init__(self, bot, ctx, record):
+	def __init__(self, bot, ctx, name, record):
 		self.bot = bot
 		self.ctx = ctx
+		self.name = name
 		self.record = record
 		self.id = record['id']
 		self.weapon = record['weapon']
@@ -84,17 +85,16 @@ class Profile:
 	def __init__(self, bot):
 		self.bot = bot
 
-	async def get_profile(self, ctx, *, id):
-		if not id:
-			id = ctx.author.id
+	async def get_profile(self, ctx, *, member):
+		id = member.id or ctx.author.id
 		record = await self.bot.pool.fetchrow(f'select * from profiles where id={id}')
-		return ProfileInfo(self.bot, ctx, record)
+		return ProfileInfo(self.bot, ctx, member.name, record)
 
 	@commands.group(invoke_without_command=True)
 	async def profile(self, ctx, *, member: DisambiguateMember = None):
 		member = member or ctx.author
-		profile = await self.get_profile(ctx, id=member.id)
-		await ctx.send(profile.weapon or 'No weapon' + await str(profile))
+		profile = await self.get_profile(ctx, member=member)
+		await ctx.send(profile.weapon or 'No weapon' + str(profile))
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
