@@ -84,9 +84,10 @@ class Weapon:
 		self.damage = WEAPONS[weapon_id]['damage'] or 0
 		self.description = WEAPONS[weapon_id]['description']
 		self.price = WEAPONS[weapon_id]['price']
+		self.id = weapon_id
 
 	def __str__(self):
-		return f'{self.name}: {self.damage}DMG' if self.name else 'No weapon'
+		return f'{self.name}: {self.damage}DMG (ID:{self.id})' if self.name else 'No weapon'
 
 class ProfileInfo:
 	def __init__(self, bot, ctx, name, record):
@@ -186,6 +187,21 @@ class Profile:
 		if not profile:
 			await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
 		await ctx.invoke(self.profile, member=ctx.author)
+
+	def get_weapon(self, id):
+		return Weapon(id)
+
+	@commands.command()
+	async def weaponinfo(self, ctx, id:int=0):
+		weapon = self.get_weapon(id)
+
+		if not weapon:
+			return await ctx.send(f'{ctx.tick(False)} That weapon was not found.')
+
+		e = discord.Embed(title=str(weapon), description=weapon.description, colour=ctx.author.top_role.colour)
+		e.add_field(name="Price", value=weapon.price)
+
+		await ctx.send(embed=e)
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
