@@ -101,8 +101,8 @@ class Profile:
 	def __init__(self, bot):
 		self.bot = bot
 
-	async def get_profile(self, ctx, *member):
-		id = member.id or ctx.author.id
+	async def get_profile(self, ctx, member=ctx.author):
+		id = member.id
 		record = await self.bot.pool.fetchrow(f'select * from profiles where id={id}')
 		return ProfileInfo(self.bot, ctx, member.name, record)
 
