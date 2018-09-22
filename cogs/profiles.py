@@ -58,6 +58,12 @@ class Item:
 		self.item_id
 
 class Weapon:
+	weapon_names = {
+		0: 'No weapon'
+	}
+	weapon_damages = {
+		0: 0
+	}
 	def __init__(self, weapon_id):
 		self.name = weapon_names[weapon_id]
 		self.damage = weapon_damages[weapon_id]
