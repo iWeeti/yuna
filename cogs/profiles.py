@@ -129,10 +129,8 @@ class ProfileInfo:
 		_values = [_ for _ in fields.values()]
 
 		for index, key in enumerate(fields):
-			print(key)
-			print(_values[index])
-			print(dir(key))
-			
+			self.__dict__[key] = _values[index]
+
 		await self.bot.pool.execute(query, self.id, *fields.values())
 
 	async def increase_xp(self, ctx):
