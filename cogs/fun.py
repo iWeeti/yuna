@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import requests #you only need it for a short time so its gud
+
 
 class Fun():
     """Commands that will stop boredom :^)"""
@@ -9,11 +9,16 @@ class Fun():
         
     @commands.command()
     async def ascii(self, ctx, *, text):
-        text = text.replace(" ", "+")
-        r = requests.get(f"http://artii.herokuapp.com/make?text={text}")
-        rc = str(r.content)
-        rc = rc.replace("\n", "\n")
-        await ctx.send(f"```{rc}```")
+        text = text.replace(' ', '\n')
+        
+        if not text:
+            await ctx.send(f"{ctx.tick(False)} You need to specify what anime you want to search for!")
+            
+        _fig = figlet_format(text)
+        
+        if len(_fig) > 1700:
+            await ctx.send(f"{ctx.tick(False} The message is too long!")
+        await ctx.send(f"Here you go!\n```{_fig}```")
       
     
         
