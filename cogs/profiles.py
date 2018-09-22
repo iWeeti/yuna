@@ -66,9 +66,8 @@ class ProfileInfo:
 		self.id = record['id']
 		self.weapon = record['weapon']
 
-	async def __str__(self):
-		member = self.ctx.guild.get_member(self.id) or await self.bot.get_user_info(self.id)
-		return f'Profile of {member.display_name}'
+	def __str__(self):
+		return f'Profile of {self.name}'
 
 	async def edit_field(self, **fields):
 		keys = ', '.join(fields)
