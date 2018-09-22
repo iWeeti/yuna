@@ -140,6 +140,10 @@ class Profile:
 		id = member.id
 		record = await self.bot.pool.fetchrow(f'select * from profiles where id={id}')
 		if not record:
+			if member is ctx.author:
+				await ctx.db.execute(f'INSERT INTO PROFILES VALUES ({member.id})')
+				record = await ctx.db.fetchrow(f'SELECT * FROM PROFILES WHERE id={id}')
+				return ProfileInfo(self.bot, ctx, member.name, record)
 			return None
 		return ProfileInfo(self.bot, ctx, member.name, record)
 
