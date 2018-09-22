@@ -1,6 +1,5 @@
 ### Yuna
-##### Yuna is for the guys and girls who like Sword Art Online.
-##### Sword Art Online is an anime series.
+##### Yuna is from the movie, Sword Art Online: Ordinal Scale
 
 1. Profile
    * yu profile | Shows your profile, creates a one if you don't have.
