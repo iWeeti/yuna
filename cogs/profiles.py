@@ -193,11 +193,8 @@ class Profile:
 			await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
 		await ctx.invoke(self.profile, member=ctx.author)
 
-	@commands.command()
-	async def edit_field(self, ctx, member:discord.Member, field:str, value:str):
-		profile = await self.get_profile(ctx, member)
-		await profile.edit_field(f'{field}'=value)
-		await ctx.send(ctx.tick(True))
+	
+
 
 	@profile.command()
 	async def bio(self, ctx, *, bio:str=None):
@@ -211,7 +208,10 @@ class Profile:
 		await ctx.send(profile.__dict__)
 
 	def get_weapon(self, id):
-		return Weapon(id)
+		try:
+			return Weapon(id)
+		except KeyError:
+			return None
 
 	@commands.command()
 	async def weaponinfo(self, ctx, id:int=0):
@@ -224,6 +224,8 @@ class Profile:
 		e.add_field(name="Price", value=weapon.price)
 
 		await ctx.send(embed=e)
+
+	z
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
