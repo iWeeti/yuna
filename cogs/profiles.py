@@ -187,7 +187,7 @@ class Profile:
 			e.add_field(name="Cash", value=f'${profile.cash}')
 			e.add_field(name="XP", value=profile.xp)
 			e.add_field(name="Level", value=profile.level)
-			e.add_field(name="Inventory", value=profile.inv)
+			# e.add_field(name="Inventory", value=profile.inv)
 
 			await ctx.send(embed=e)
 
