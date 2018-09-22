@@ -163,8 +163,8 @@ class Profile:
 
 		e.add_field(name="Weapon", value=str(profile.weapon))
 		e.add_field(name="Cash", value=profile.cash)
-		e.add_field(name="XP", value=profile.weapon)
-		e.add_field(name="Level", value=profile.weapon)
+		e.add_field(name="XP", value=profile.xp)
+		e.add_field(name="Level", value=profile.level)
 
 		await ctx.send(embed=e)
 
