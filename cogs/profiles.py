@@ -87,7 +87,7 @@ class Profile:
 	async def get_profile(self, ctx, *, id):
 		if not id:
 			id = ctx.author.id
-		record = self.bot.pool.fetchrow(f'select * from profiles where id={id}')
+		record = await self.bot.pool.fetchrow(f'select * from profiles where id={id}')
 		return ProfileInfo(self.bot, ctx, record)
 
 	@commands.group(invoke_without_command=True)
