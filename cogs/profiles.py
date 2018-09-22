@@ -70,15 +70,15 @@ class ProfileInfo:
 		return f'Profile of {user.display_name}'
 
 	async def edit_field(self, **fields):
-        keys = ', '.join(fields)
-        values = ', '.join(f'${2 + i}' for i in range(len(fields)))
+		keys = ', '.join(fields)
+		values = ', '.join(f'${2 + i}' for i in range(len(fields)))
 
-        query = f"""update profiles
-                    SET {keys} = {values}
-                    where id=$1;
-                 """
+		query = f"""update profiles
+		            SET {keys} = {values}
+		            where id=$1;
+		         """
 
-        await self.ctx.db.execute(query, self.id, *fields.values())
+		await self.ctx.db.execute(query, self.id, *fields.values())
 
 class Profile:
 	def __init__(self, bot):
