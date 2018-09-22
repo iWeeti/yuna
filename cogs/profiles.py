@@ -58,15 +58,15 @@ class Item:
 		self.item_id
 
 class ProfileInfo:
-	def __init__(self, bot, record):
+	def __init__(self, bot, ctx, record):
 		self.bot = bot
+		self.ctx = ctx
 		self.record = record
 		self.id = record['id']
 		self.weapon = record['weapon']
 
-	def __str__(self):
-		user = await self.bot.get_user_info(self.id)
-		member = ctx.guild.get_member(self.id) or user
+	async def __str__(self):
+		member = self.ctx.guild.get_member(self.id) or await self.bot.get_user_info(self.id)
 		return f'Profile of {user.display_name}'
 
 	async def edit_field(self, **fields):
@@ -88,7 +88,7 @@ class Profile:
 		if not id:
 			id = ctx.author.id
 		record = self.bot.pool.fetchrow(f'select * from profiles where id={id}')
-		return ProfileInfo(ctx, record)
+		return ProfileInfo(self.bot, ctx, record)
 
 	@commands.group(invoke_without_command=True)
 	async def profile(self, ctx, *, member: DisambiguateMember = None):
