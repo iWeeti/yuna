@@ -80,6 +80,7 @@ class ProfileInfo:
 		self.record = record
 		self.id = record['id']
 		self.weapon = Weapon(record['weapon'])
+		self.bio = record['bio']
 
 	def __str__(self):
 		return f'Profile of {self.name}'
@@ -108,7 +109,14 @@ class Profile:
 	async def profile(self, ctx, *, member: DisambiguateMember = None):
 		member = member or ctx.author
 		profile = await self.get_profile(ctx, member=member)
-		await ctx.send(str(profile.weapon))
+
+		e = discord.Embed(title=str(profile), color=member.top_role.colour or ctx.me.top_role.colour)
+		e.description = profile.bio
+		e.set_thumbnail(url=member.avatar_url)
+
+		e.add_field(name="Weapon", value=str(profile.weapon))
+
+		await ctx.send(embed=e)
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
