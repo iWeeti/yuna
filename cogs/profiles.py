@@ -64,7 +64,6 @@ ITEMS = {
 
 class Item:
 	def __init__(self, id):
-		self.id
 		self.name = ITEMS[id]['name']
 		self.description = ITEMS[id]['description']
 		self.price = ITEMS[id]['price']
