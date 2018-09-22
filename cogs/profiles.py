@@ -112,7 +112,7 @@ class ProfileInfo:
 		self.cash = record['cash'] or 0
 		self.xp = record['xp'] or 0
 		self.level = record['level'] or 0
-		self._inv =  record['inv'] or 'Nothing in inventory'
+		self._inv =  record['inv']
 
 	def __str__(self):
 		return f'Profile of {self.name}'
