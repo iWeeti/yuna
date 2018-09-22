@@ -19,4 +19,4 @@
    * yu queue | Shows the current queue.
    
 #### Yuna is still in development.
-##### 	More udpdates coming soon.
+> More udpdates coming soon.
