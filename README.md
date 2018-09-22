@@ -11,7 +11,7 @@
    * yu tickle \<member\> | Tickles a member.
    * yu feed \<member\> | Feeds a member.
 3. Music
-   * yu sing \<song\> | Plays a song.
+   * yu play \<song\> | Plays a song.
    * yu pause | Pauses the song currently playing.
    * yu resume | Resumes the song if paused.
    * yu seek \<amount\> | Seeks the amount of time you specify. Use negative amounts to go backwards.
