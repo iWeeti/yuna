@@ -238,7 +238,7 @@ class Profile:
 		ctx = await self.bot.get_context(message, cls=context.Context)
 		profile = await self.get_profile(ctx, auto_create=False)
 		if not profile: return
-		await profile.increase_xp()
+		await profile.increase_xp(ctx)
 
 
 def setup(bot):
