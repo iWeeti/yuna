@@ -150,18 +150,18 @@ class ProfileInfo:
 		await self.bot.pool.execute(query, self.id, *fields.values())
 
 	async def increase_xp(self, ctx):
-	    if self.is_ratelimited:
-	        return
+		if self.is_ratelimited:
+			return
 		_now = dtime.utcnow()
 		await self.edit_field(last_xp_time=repr(_now))
-	    new_xp = self.xp + random.randint(15, 25)
-	    await self.edit_field(xp=new_xp)
-	    lvl = self.level
-	    new_lvl = self._get_level_from_xp(self.xp)
-	    await self.edit_field(level=new_lvl)
-	    if new_lvl != lvl:
-	        if self.announce_level and not self.ctx.guild.id == 264445053596991498:
-	            await ctx.send(f'Good job {ctx.author.display_name} you just leveled up to level {new_lvl}!')
+		new_xp = self.xp + random.randint(15, 25)
+		await self.edit_field(xp=new_xp)
+		lvl = self.level
+		new_lvl = self._get_level_from_xp(self.xp)
+		await self.edit_field(level=new_lvl)
+		if new_lvl != lvl:
+			if self.announce_level and not self.ctx.guild.id == 264445053596991498:
+				await ctx.send(f'Good job {ctx.author.display_name} you just leveled up to level {new_lvl}!')
 
 class Profile:
 	def __init__(self, bot):
