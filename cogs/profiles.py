@@ -1,6 +1,7 @@
 from discord.ext import commands
 import discord
 import re
+from .utils import context
 
 class DisambiguateMember(commands.IDConverter):
     async def convert(self, ctx, argument):
@@ -159,12 +160,12 @@ class Profile:
 	def __init__(self, bot):
 		self.bot = bot
 
-	async def get_profile(self, ctx, member=None):
+	async def get_profile(self, ctx, member=None, auto_create=True):
 		member = member or ctx.author
 		id = member.id
 		record = await self.bot.pool.fetchrow(f'select * from profiles where id={id}')
 		if not record:
-			if member is ctx.author:
+			if member is ctx.author and auto_create:
 				await ctx.db.execute(f'INSERT INTO PROFILES VALUES ({member.id})')
 				record = await ctx.db.fetchrow(f'SELECT * FROM PROFILES WHERE id={id}')
 				return ProfileInfo(self.bot, ctx, member.name, record)
@@ -213,7 +214,7 @@ class Profile:
 
 		await profile.edit_field(bio=bio)
 		await ctx.send(f'{ctx.tick(True)} BIO edited.')
-		
+
 	def get_weapon(self, id):
 		try:
 			return Weapon(id)
@@ -232,6 +233,13 @@ class Profile:
 		e.add_field(name="Price", value=weapon.price)
 
 		await ctx.send(embed=e)
+
+	async def on_message(self, message):
+		ctx = await self.bot.get_context(message, cls=context.Context)
+		profile = await self.get_profile(ctx, auto_create=False)
+		if not profile: return
+		await profile.increase_xp()
+
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
