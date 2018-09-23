@@ -104,6 +104,7 @@ class ProfileInfo:
 		self.level = record['level'] or 0
 		self.apples = record['apples'] or ''
 		self.last_xp_time = record['last_xp_time'] or None
+		self.announce_level = record['announce_level']
 
 	def __str__(self):
 		return f'Profile of {self.name}'
