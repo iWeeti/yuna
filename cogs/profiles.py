@@ -114,7 +114,7 @@ class ProfileInfo:
 
 	@property
 	def is_ratelimited(self):
-		return self.last_xp_time < dtime.utcnow() + datetime.timedelta(minutes=1)
+		return self.last_xp_time + datetime.timedelta(minutes=1) > dtime.utcnow()
 		
 
 	@staticmethod
