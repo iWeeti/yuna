@@ -2,6 +2,8 @@ from discord.ext import commands
 import discord
 import re
 from .utils import context
+import datetime
+from datetime import datetime as dtime
 
 class DisambiguateMember(commands.IDConverter):
     async def convert(self, ctx, argument):
@@ -100,6 +102,7 @@ class ProfileInfo:
 		self.xp = record['xp'] or 0
 		self.level = record['level'] or 0
 		self.apples = record['apples'] or ''
+		self.last_xp_time = eval(record['last_xp_time'])
 
 	def __str__(self):
 		return f'Profile of {self.name}'
@@ -108,7 +111,11 @@ class ProfileInfo:
 	def inv(self):
 		inv = f'{self.apples}'
 		return inv
-	
+
+	@property
+	def is_ratelimited(self):
+		return self.last_xp_time < dtime.utcnow() + datetime.timedelta(minutes=1)
+		
 
 	@staticmethod
 	def _get_level_xp(n):
@@ -235,6 +242,7 @@ class Profile:
 		await ctx.send(embed=e)
 
 	async def on_message(self, message):
+		if message.author.bot: return
 		ctx = await self.bot.get_context(message, cls=context.Context)
 		profile = await self.get_profile(ctx, auto_create=False)
 		if not profile: return
