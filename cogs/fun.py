@@ -16,15 +16,12 @@ class Fun():
         if not text:
             await ctx.send(f"{ctx.tick(False)} You need to specify the text you want to convert!")
             
-        _fig = figlet_format(text)
+        _fig = figlet_format(text.replace(' ', '\n'))
         
         if len(_fig) > 1300:
             await ctx.send(f"{ctx.tick(False)} That message is too long!")
         await ctx.send(f"{ctx.tick(True)} Done!")
         await ctx.send(f"```{_fig}```")
-      
-    
-        
 
 def setup(bot):
     bot.add_cog(Fun(bot))
