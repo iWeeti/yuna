@@ -152,12 +152,8 @@ class ProfileInfo:
 	async def increase_xp(self, ctx):
 	    if self.is_ratelimited:
 	        return
-	    if not self.last_xp_time:
-	        _now = dtime.utcnow()
-	        await self.edit_field(last_xp_time=repr(_now))
-	    else:
-	        last_xp_time = dtime.utcnow()
-	        await self.edit_field(ctx, last_xp_time=repr(last_xp_time))
+        _now = dtime.utcnow()
+        await self.edit_field(last_xp_time=repr(_now))
 	    new_xp = self.xp + random.randint(15, 25)
 	    await self.edit_field(experience=new_xp)
 	    lvl = self.level
