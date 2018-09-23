@@ -285,7 +285,7 @@ class Profile:
 	async def buy_apple(self, ctx, amount:int=1):
 		profile = await self.get_profile(ctx)
 
-		if profile
+		# if profile
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
