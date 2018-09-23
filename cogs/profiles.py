@@ -213,8 +213,7 @@ class Profile:
 
 		await profile.edit_field(bio=bio)
 		await ctx.send(f'{ctx.tick(True)} BIO edited.')
-		await ctx.send(profile.__dict__)
-
+		
 	def get_weapon(self, id):
 		try:
 			return Weapon(id)
