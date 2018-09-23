@@ -173,6 +173,7 @@ class Profile:
 
 	@commands.group(invoke_without_command=True)
 	async def profile(self, ctx, *, member: DisambiguateMember = None):
+		"""Shows your or someone else's profile."""
 		if not ctx.invoked_subcommand:
 			member = member or ctx.author
 			profile = await self.get_profile(ctx, member=member)
@@ -196,6 +197,7 @@ class Profile:
 
 	@profile.command(hidden=True)
 	async def make(self, ctx):
+		"""Makes a profile if you don't already have a one."""
 		profile = await self.get_profile(ctx)
 		if not profile:
 			await ctx.db.execute(f'insert into profiles values({ctx.author.id})')
@@ -203,6 +205,7 @@ class Profile:
 
 	@profile.command()
 	async def bio(self, ctx, *, bio:str=None):
+		"""Changes your profile's bio."""
 		profile = await self.get_profile(ctx)
 
 		if not bio:
@@ -220,6 +223,7 @@ class Profile:
 
 	@commands.command()
 	async def weaponinfo(self, ctx, id:int=0):
+		"""Shows weapon's info by it's id."""
 		try:
 			weapon = self.get_weapon(id)
 		except KeyError:
