@@ -155,7 +155,7 @@ class ProfileInfo:
         _now = dtime.utcnow()
         await self.edit_field(last_xp_time=repr(_now))
 	    new_xp = self.xp + random.randint(15, 25)
-	    await self.edit_field(experience=new_xp)
+	    await self.edit_field(xp=new_xp)
 	    lvl = self.level
 	    new_lvl = self._get_level_from_xp(self.xp)
 	    await self.edit_field(level=new_lvl)
