@@ -89,7 +89,7 @@ WEAPONS = {
 	3: {
 		'name': 'Excalibur',
 		'damage': 50000,
-		'description': 'Teh legendary Excalibur',
+		'description': 'The legendary Excalibur',
 		'price': 999999999999,
 		'emoji': 493479981066878987,
 	},
