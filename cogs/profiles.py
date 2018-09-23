@@ -58,26 +58,43 @@ class DisambiguateMember(commands.IDConverter):
             raise commands.BadArgument("Could not find this member. Note this is case sensitive.")
         return result
 
+ITEMS = {
+	'apple':{
+		'price': 5
+	}
+}
+
 WEAPONS = {
 	0: {
 		'name': 'No weapon',
 		'damage': 0,
 		'description': 'No weapon',
-		'price': 0
+		'price': 0,
+		'emoji': None,
 	},
 	1: {
 		'name': 'iWeeti\'s sword',
 		'damage': 500,
 		'description': 'Special made sword for iWeeti',
-		'price': 9999999
+		'price': 9999999,
+		'emoji': None,
 	},
 	2: {
 		'name': 'lukee\'s sword',
 		'damage': 500,
 		'description': 'Special made sword for lukee',
-		'price': 9999999
+		'price': 9999999,
+		'emoji': None,
+	},
+	3: {
+		'name': 'Excalibur',
+		'damage': 500,
+		'description': 'Teh legendary Excalibur',
+		'price': 999999999999,
+		'emoji': '493479981066878987',
 	},
 }
+
 class Weapon:
 	def __init__(self, weapon_id):
 		self.name = WEAPONS[weapon_id]['name'] or 'Not defined'
@@ -89,6 +106,10 @@ class Weapon:
 	def __str__(self):
 		return f'{self.name}: {self.damage}DMG (ID:{self.id})' if self.name else 'No weapon'
 	
+
+class Item:
+	def __init__(self, name):
+		self.price = ITEMS[name]['price']
 
 class ProfileInfo:
 	def __init__(self, bot, ctx, name, record):
@@ -236,6 +257,9 @@ class Profile:
 
 		e = discord.Embed(title=str(weapon), description=weapon.description, colour=ctx.author.top_role.colour)
 		e.add_field(name="Price", value=weapon.price)
+		if weapon.emoji:
+			emoji = self.bot.get_emoji(weapon.emoji)
+			e.set_image(url=emoji.url)
 
 		await ctx.send(embed=e)
 
@@ -246,6 +270,22 @@ class Profile:
 		if not profile: return
 		await profile.increase_xp(ctx)
 
+	def get_item(self, name):
+		try:
+			return Item(name)
+		except KeyError:
+			return None
+
+	@commands.group()
+	async def buy(self, ctx):
+		if ctx.invoked_subcommand is None:
+			return ctx.show_help('buy')
+
+	@buy.command(name='apple')
+	async def buy_apple(self, ctx, amount:int=1):
+		profile = await self.get_profile(ctx)
+
+		if profile
 
 def setup(bot):
 	bot.add_cog(Profile(bot))
