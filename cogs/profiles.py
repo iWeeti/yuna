@@ -91,7 +91,7 @@ WEAPONS = {
 		'damage': 500,
 		'description': 'Teh legendary Excalibur',
 		'price': 999999999999,
-		'emoji': '493479981066878987',
+		'emoji': 493479981066878987,
 	},
 }
 
