@@ -120,10 +120,10 @@ class ProfileInfo:
 		_last = eval(self.last_xp_time)
 		return _last + datetime.timedelta(minutes=1) > dtime.utcnow()
 
-	def _get_level_xp(n):
+	def _get_level_xp(self, n):
 	    return 5*(n**2)+50*n+100
 
-	def _get_level_from_xp(xp):
+	def _get_level_from_xp(self, xp):
 	    remaining_xp = int(xp)
 	    level = 0
 	    while remaining_xp >= self._get_level_xp(level):
