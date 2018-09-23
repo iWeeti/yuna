@@ -102,7 +102,7 @@ class ProfileInfo:
 		self.xp = record['xp'] or 0
 		self.level = record['level'] or 0
 		self.apples = record['apples'] or ''
-		self.last_xp_time = eval(record['last_xp_time'])
+		self.last_xp_time = record['last_xp_time'] or None
 
 	def __str__(self):
 		return f'Profile of {self.name}'
@@ -114,7 +114,10 @@ class ProfileInfo:
 
 	@property
 	def is_ratelimited(self):
-		return self.last_xp_time + datetime.timedelta(minutes=1) > dtime.utcnow()
+		if not self.last_xp_time:
+			return False
+		_last = eval(self.last_xp_time)
+		return _last + datetime.timedelta(minutes=1) > dtime.utcnow()
 		
 
 	@staticmethod
