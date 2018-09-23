@@ -129,8 +129,8 @@ class ProfileInfo:
 	def _get_level_from_xp(xp):
 	    remaining_xp = int(xp)
 	    level = 0
-	    while remaining_xp >= Profile._get_level_xp(level):
-	        remaining_xp -= Profile._get_level_xp(level)
+	    while remaining_xp >= self._get_level_xp(level):
+	        remaining_xp -= self._get_level_xp(level)
 	        level += 1
 	    return level
 
