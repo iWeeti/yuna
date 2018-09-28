@@ -4,7 +4,7 @@ from .utils import checks
 
 class Reason(commands.Converter):
 	"""Converts an action reason"""
-	async def convert(self, ctx, arg):
+	async def convert(self, ctx, arg=None):
 		if arg is None or not arg:
 			return f'Action by {ctx.author} (ID:{ctx.author.id})'		
 		return f'Action by {ctx.author} (ID:{ctx.author.id}): {arg}'
@@ -17,10 +17,20 @@ class Mod:
 
 	@commands.command()
 	@checks.is_mod()
-	async def test(self, ctx, *, test: Reason=None):
-		if not test:
-			test = await Reason.convert(ctx, None)
-		await ctx.send(test)
+	async def kick(self, ctx, members:commands.Greedy[discord.Member]=None, *, reason: Reason=None):
+		if not members:
+			return await ctx.send(f'{ctx.tick(False)} You need to specify at least one member to kick.')
+
+		kicked = []
+
+		for member in members:
+			try:
+				await member.kick(reason=reason)
+				kicked.append(member.display_name)
+			except discord.Forbidden:
+				await ctx.send(f'{ctx.tick(False)} Failed to kick, I need kick members permissions to do this.')
+
+		await ctx.send(f'{ctx.tick(True)} Kicked {", ".join(kicked)}.')
 
 def setup(bot):
 	bot.add_cog(Mod(bot))
