@@ -111,7 +111,7 @@ class Mod:
 	@purge.command(name='images', aliases=['image'])
 	@checks.is_mod()
 	async def purge_images(self, ctx, limit:int=100):
-		await self.remove_messages(ctx, limit, lambda m: len(e.embeds) or len(e.attachments))
+		await self.remove_messages(ctx, limit, lambda m: len(m.embeds) or len(m.attachments))
 
 	@purge.command(name='user', aliases=['users'])
 	@checks.is_mod()
