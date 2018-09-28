@@ -120,5 +120,13 @@ class Mod:
 			return await ctx.send(f'{ctx.tick(False)} You need to specify a member to purge.')
 		await self.remove_messages(ctx, limit, lambda m: m.author.id == member.id)
 
+	@purge.command(name='bot', aliases=['bots'])
+	@checks.is_mod()
+	async def purge_bot(self, ctx, prefix:str=None, limit:int=100):
+		if not prefix:
+			await self.remove_messages(ctx, limit, lambda m: m.author.bot)
+		else:
+			await self.remove_messages(ctx, limit, lambda m: m.author.bot or m.contenr.startswith(prefix))
+
 def setup(bot):
 	bot.add_cog(Mod(bot))
