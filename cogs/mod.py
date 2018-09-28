@@ -61,7 +61,7 @@ class Mod:
 			after = discord.Object(id=after)
 
 		try:
-			deleted_messages = await ctx.channel.purge(limit=limit, before=before, after=after, predicate=pred)
+			deleted_messages = await ctx.channel.purge(limit=limit, before=before, after=after, check=pred)
 		except discord.Forbidden:
 			return await ctx.send(f'{ctx.tick(False)} I do not have delete messages permissions.')
 		except discord.HTTPException as e:
