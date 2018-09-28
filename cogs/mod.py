@@ -114,10 +114,10 @@ class Mod:
 
 	@purge.command(name='user', aliases=['users'])
 	@checks.is_mod()
-	async def purge_user(self, ctx, members:commands.Greedy[discord.Member]=None, limit:int=100):
-		if not members:
-			return await ctx.send(f'{ctx.tick(False)} You need to specify at least one member to purge.')
-		await self.remove_messages(ctx, limit, lambda m: m.author.id == member.id for member in members)
+	async def purge_user(self, ctx, memberdiscord.Member=None, limit:int=100):
+		if not member:
+			return await ctx.send(f'{ctx.tick(False)} You need to specify a member to purge.')
+		await self.remove_messages(ctx, limit, lambda m: m.author.id == member.id)
 
 def setup(bot):
 	bot.add_cog(Mod(bot))
