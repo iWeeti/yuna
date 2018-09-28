@@ -68,23 +68,23 @@ class Mod:
 			return await ctx.send(f'Oops... {e}, maybe try a smaller limit.')
 
 		deleted_counter = Counter(m.author.display_name for m in deleted_messages)
-        deleted_messages = len(deleted_messages)
-        messages = [f'{deleted_messages} message{" was" if deleted_messages == 1 else "s were"} purged.']
-        if deleted_messages:
-            messages.append('')
-            deleted_counter = sorted(deleted_counter.items(), key=lambda t: t[1], reverse=True)
-            messages.extend(f'**{name}**: {count}' for name, count in deleted_counter)
+		deleted_messages = len(deleted_messages)
+		messages = [f'{deleted_messages} message{" was" if deleted_messages == 1 else "s were"} purged.']
+		if deleted_messages:
+		    messages.append('')
+		    deleted_counter = sorted(deleted_counter.items(), key=lambda t: t[1], reverse=True)
+		    messages.extend(f'**{name}**: {count}' for name, count in deleted_counter)
 
-        to_send = '\n'.join(deleted_messages)
+		to_send = '\n'.join(deleted_messages)
 
-        if len(to_send) > 2000:
-            await ctx.send(f'{ctx.tick(True)} Successfully purged {deleted_messages} messages.', delete_after=10)
-            await asyncio.sleep(10)
-            await ctx.message.delete()
-        else:
-            await ctx.send(to_send, delete_after=10)
-            await asyncio.sleep(10)
-            await ctx.message.delete()
+		if len(to_send) > 2000:
+		    await ctx.send(f'{ctx.tick(True)} Successfully purged {deleted_messages} messages.', delete_after=10)
+		    await asyncio.sleep(10)
+		    await ctx.message.delete()
+		else:
+		    await ctx.send(to_send, delete_after=10)
+		    await asyncio.sleep(10)
+		    await ctx.message.delete()
 
 	@commands.group()
 	@checks.is_mod()
