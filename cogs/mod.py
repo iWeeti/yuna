@@ -126,7 +126,7 @@ class Mod:
 		if not prefix:
 			await self.remove_messages(ctx, limit, lambda m: m.author.bot)
 		else:
-			await self.remove_messages(ctx, limit, lambda m: m.author.bot or m.contenr.startswith(prefix))
+			await self.remove_messages(ctx, limit, lambda m: m.author.bot or m.content.startswith(prefix))
 
 def setup(bot):
 	bot.add_cog(Mod(bot))
