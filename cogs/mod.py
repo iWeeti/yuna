@@ -18,6 +18,8 @@ class Mod:
 	@commands.command()
 	@checks.is_mod()
 	async def test(self, ctx, *, test: Reason=None):
+		if not test:
+			test = await Reason.convert(ctx, None)
 		await ctx.send(test)
 
 def setup(bot):
