@@ -51,7 +51,7 @@ class Mod:
 
 		await ctx.send(f'{ctx.tick(True)} Banned {", ".join(banned)}.')
 
-	async def remove_messages(self, ctx, pred, limit:int=100, before=None, after=None):
+	async def remove_messages(self, ctx, limit, pred, before=None, after=None):
 		if limit > 2000:
 			return await ctx.send(f'{ctx.tick(False)} Invalid limit. {limit}/2000')
 
