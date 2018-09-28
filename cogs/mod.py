@@ -29,7 +29,7 @@ class Mod:
 				await member.kick(reason=reason)
 				kicked.append(member.display_name)
 			except discord.Forbidden:
-				await ctx.send(f'{ctx.tick(False)} Failed to kick, I need kick members permissions to do this.')
+				return await ctx.send(f'{ctx.tick(False)} Failed to kick, I need kick members permissions to do this.')
 
 		await ctx.send(f'{ctx.tick(True)} Kicked {", ".join(kicked)}.')
 
