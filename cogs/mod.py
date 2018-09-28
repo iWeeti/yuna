@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+import asyncio
 from .utils import checks
 from collections import Counter
 
@@ -69,7 +70,7 @@ class Mod:
 
 		deleted_counter = Counter(m.author.display_name for m in deleted_messages)
 		deleted_messages = len(deleted_messages)
-		messages = [f'{deleted_messages} message{" was" if deleted_messages == 1 else "s were"} purged.']
+		messages = [f'{deleted_messages} message{" was" if deleted_messages == 1 else "s were"} removed.']
 		if deleted_messages:
 		    messages.append('')
 		    deleted_counter = sorted(deleted_counter.items(), key=lambda t: t[1], reverse=True)
@@ -78,7 +79,7 @@ class Mod:
 		to_send = '\n'.join(messages)
 
 		if len(to_send) > 2000:
-		    await ctx.send(f'{ctx.tick(True)} Successfully purged {deleted_messages} messages.', delete_after=10)
+		    await ctx.send(f'{ctx.tick(True)} Removed {deleted_messages} messages.', delete_after=10)
 		    await asyncio.sleep(10)
 		    await ctx.message.delete()
 		else:
