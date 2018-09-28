@@ -79,15 +79,15 @@ class Mod:
 		to_send = '\n'.join(messages)
 
 		if len(to_send) > 2000:
-		    await ctx.send(f'{ctx.tick(True)} Removed {deleted_messages} messages.', delete_after=10)
-		    await asyncio.sleep(10)
+			await ctx.send(f'{ctx.tick(True)} Removed {deleted_messages} messages.', delete_after=10)
+			await asyncio.sleep(10)
 			if ctx.message:
-			    await ctx.message.delete()
+				await ctx.message.delete()
 		else:
-		    await ctx.send(to_send, delete_after=10)
-		    await asyncio.sleep(10)
+			await ctx.send(to_send, delete_after=10)
+			await asyncio.sleep(10)
 			if ctx.message:
-			    await ctx.message.delete()
+				await ctx.message.delete()
 
 	@commands.group()
 	@checks.is_mod()
