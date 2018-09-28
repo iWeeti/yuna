@@ -71,9 +71,9 @@ class Mod:
 		deleted_messages = len(deleted_messages)
 		messages = [f'{deleted_messages} message{" was" if deleted_messages == 1 else "s were"} purged.']
 		if deleted_messages:
-		    messages.append('')
+		    deleted_messages.append('')
 		    deleted_counter = sorted(deleted_counter.items(), key=lambda t: t[1], reverse=True)
-		    messages.extend(f'**{name}**: {count}' for name, count in deleted_counter)
+		    messdeleted_messagesages.extend(f'**{name}**: {count}' for name, count in deleted_counter)
 
 		to_send = '\n'.join(deleted_messages)
 
