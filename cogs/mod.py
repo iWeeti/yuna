@@ -18,7 +18,7 @@ class Mod:
 
 	@commands.command()
 	@checks.is_mod()
-	async def kick(self, ctx, members:commands.Greedy[discord.Member, discord.User]=None, *, reason: Reason=None):
+	async def kick(self, ctx, members:commands.Greedy[discord.Member]=None, *, reason: Reason=None):
 		if not members:
 			return await ctx.send(f'{ctx.tick(False)} You need to specify at least one member to kick.')
 
