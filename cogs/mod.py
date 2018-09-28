@@ -114,7 +114,7 @@ class Mod:
 
 	@purge.command(name='user', aliases=['users'])
 	@checks.is_mod()
-	async def purge_user(self, ctx, memberdiscord.Member=None, limit:int=100):
+	async def purge_user(self, ctx, member:discord.Member=None, limit:int=100):
 		if not member:
 			return await ctx.send(f'{ctx.tick(False)} You need to specify a member to purge.')
 		await self.remove_messages(ctx, limit, lambda m: m.author.id == member.id)
