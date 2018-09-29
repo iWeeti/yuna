@@ -58,6 +58,9 @@ class Owner:
         x = x.replace('Merge made by the \'recursive\' strategy.', '')
         x = x.replace('From https://github.com/iWeeti/yuna', '')
         await msg.edit(content=f'```bash\n{x}\n```')
+        found = re.search('\w.*\.py', x)
+        if found:
+            await ctx.invoke(self._reload, module=found.group().lower().replace('.py', ''))
         
     @commands.command(hidden=True)
     async def load(self, ctx, *, module):
