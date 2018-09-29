@@ -44,5 +44,41 @@ class Fun():
         e.set_image(url=await self.chewey.dog())
         await ctx.send(embed=e)
 
+    @commands.command()
+    async def cat(self, ctx):
+        e = discord.Embed(title="Cat", color=ctx.author.top_role.color)
+        e.set_image(url=await self.chewey.cat())
+        await ctx.send(embed=e)
+
+    @commands.command()
+    async def birb(self, ctx):
+        e = discord.Embed(title="Birb", color=ctx.author.top_role.color)
+        e.set_image(url=await self.chewey.birb())
+        await ctx.send(embed=e)
+
+    @commands.command()
+    async def space(self, ctx):
+        e = discord.Embed(title="Space", color=ctx.author.top_role.color)
+        e.set_image(url=await self.chewey.space())
+        await ctx.send(embed=e)
+
+    @commands.command()
+    async def nature(self, ctx):
+        e = discord.Embed(title="Nature", color=ctx.author.top_role.color)
+        e.set_image(url=await self.chewey.nature())
+        await ctx.send(embed=e)
+
+    @commands.command()
+    async def otter(self, ctx):
+        e = discord.Embed(title="Otter", color=ctx.author.top_role.color)
+        e.set_image(url=await self.chewey.otter())
+        await ctx.send(embed=e)
+
+    @commands.command()
+    async def plane(self, ctx):
+        e = discord.Embed(title="Otter", color=ctx.author.top_role.color)
+        e.set_image(url=await self.chewey.otter())
+        await ctx.send(embed=e)
+
 def setup(bot):
     bot.add_cog(Fun(bot))
