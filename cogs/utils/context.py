@@ -157,6 +157,9 @@ class Context(commands.Context):
         if label is not None:
             return f'{emoji}: {label}'
         return emoji
+    
+    def yen(self):
+        return "¥"
 
     async def _acquire(self, timeout):
         if self.db is None:
