@@ -1,12 +1,14 @@
 import discord
 from discord.ext import commands
 from pyfiglet import *
+from chewey import chewey
 
 
 class Fun():
     """Commands that will stop boredom :^)"""
     def __init__(self, bot):
         self.bot = bot
+        self.chewey = chewey.Client(bot.config.chewey_token)
         
     @commands.command()
     async def ascii(self, ctx, *, text):
@@ -35,6 +37,10 @@ class Fun():
         e.set_image(url=f'https://kaan.ga/iWeeti/gayify/{member.id}/{member.avatar}/{member2.id}/{member2.avatar}/')
 
         await ctx.send(embed=e)
+
+    @commands.command()
+    async def dog(self, ctx):
+
 
 def setup(bot):
     bot.add_cog(Fun(bot))

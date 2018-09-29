@@ -52,6 +52,12 @@ class Yuna(commands.AutoShardedBot):
 			except Exception as e:
 				print(f'[FAIL] Failed to load {extension} with error: {e}')
 
+	@property
+	def config(self):
+		import config as _cfg
+		return _cfg
+	
+
 	@commands.command(name='help', hidden=True)
 	async def _help(self, ctx, *, command: str = None):
 		"""Shows help about a command or the bot"""
