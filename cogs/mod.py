@@ -24,6 +24,9 @@ class Mod:
 		if not members:
 			return await ctx.send(f'{ctx.tick(False)} You need to specify at least one member to kick.')
 
+		if not reason:
+			reason = f'Action by {ctx.author} (ID:{ctx.author.id})'
+
 		kicked = []
 
 		for member in members:
@@ -41,6 +44,9 @@ class Mod:
 		if not members:
 			return await ctx.send(f'{ctx.tick(False)} You need to specify at least one member to ban.')
 
+		if not reason:
+			reason = f'Action by {ctx.author} (ID:{ctx.author.id})'
+
 		banned = []
 
 		for member in members:
@@ -51,6 +57,25 @@ class Mod:
 				return await ctx.send(f'{ctx.tick(False)} I need ban members permissions to run this command.')
 
 		await ctx.send(f'{ctx.tick(True)} Banned {", ".join(banned)}.')
+
+	@commands.command()
+	async def unban(self, ctx, users:commands.Greedy[discord.User]=None, reason:Reason=None):
+		if not users:
+			return await ctx.send(f'{ctx.tick(False)} You need to specify at least one user to unban.')
+
+		if not reason:
+			reason = f'Action by {ctx.author} (ID:{ctx.author.id})'
+
+		unbanned = []
+
+		for user in users:
+			try:
+				await guild.unban(user, reason=reason)
+				unbanned.append(user)
+			except discord.Forbidden:
+				return await ctx.send(f'{ctx.tick(False)} I don\'t have permissions to unban users.')
+
+		await ctx.send(f'{ctx.tick(True)} Unbanned {", ".join(unbanned)}.')
 
 	async def remove_messages(self, ctx, limit, pred, before=None, after=None):
 		if limit > 2000:
