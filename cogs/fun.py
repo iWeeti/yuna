@@ -23,5 +23,18 @@ class Fun():
         await ctx.send(f"{ctx.tick(True)} Done!")
         await ctx.send(f"```{_fig}```")
 
+    @commands.command()
+    async def gay(self, ctx, member:discord.Member=None, member2:discord.Member=None):
+        if not member:
+            return await ctx.send(f'{ctx.tick(False)} You need to specify at least one member to gay.')
+
+        if not member2:
+            member2 = ctx.author
+
+        e = discord.Embed()
+        e.set_image(url=f'https://kaan.ga/iWeeti/gayify/{member.id}/{member.avatar}/{member2.id}/{member2.avatar}/')
+
+        await ctx.send(embed=e)
+
 def setup(bot):
     bot.add_cog(Fun(bot))
