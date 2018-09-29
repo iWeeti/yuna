@@ -40,7 +40,9 @@ class Fun():
 
     @commands.command()
     async def dog(self, ctx):
-
+        e = discord.Embed(title="Dog", color=ctx.author.top_role.color)
+        e.set_image(url=await self.chewey.dog())
+        await ctx.send(embed=e)
 
 def setup(bot):
     bot.add_cog(Fun(bot))
