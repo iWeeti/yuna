@@ -158,6 +158,7 @@ class Context(commands.Context):
             return f'{emoji}: {label}'
         return emoji
     
+    @property
     def yen(self):
         return "¥"
 
