@@ -6,10 +6,8 @@ import requests
 from colorthief import ColorThief
 from io import BytesIO
 import random
-import aiofiles
-############## REQUESTTSTSTTSTSTST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#no API's were harmed in the making of this code
+
+
 class NSFW():
     """These commands can only be used in NSFW-Marked Channels"""
     def __init__(self, bot):

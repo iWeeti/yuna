@@ -33,7 +33,7 @@ class Owner:
         return content.strip('` \n')
 
     async def __local_check(self, ctx):
-        return not ctx.author.id == 396153668820402197 or ctx.author.id == 464910064965386283
+        return ctx.author.id == 396153668820402197 or ctx.author.id == 464910064965386283
 
     def get_syntax_error(self, e):
         if e.text is None:
