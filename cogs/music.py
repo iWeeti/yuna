@@ -28,30 +28,26 @@ class Music:
 
     async def track_hook(self, event):
         if isinstance(event, lavalink.Events.TrackStartEvent):
-            c = event.player.fetch('channel')
+            c = self.bot.get_channel(event.player.fetch('channel'))
             if c:
-                c = self.bot.get_channel(c)
-                if c:
-                    if c.members == 1:
-                        event.player.queue.clear()
-                        await event.player.disconnect()
-                        return
-                    embed = discord.Embed(colour=c.guild.me.top_role.colour, title='Now Playing', description=event.track.title)
-                    embed.timestamp = datetime.datetime.utcnow()
-                    requester = await self.bot.get_user_info(event.track.requester)
-                    embed.set_footer(text='Requested by ' + requester.name)
-                    embed.set_thumbnail(url=event.track.thumbnail)
-                    await c.send(embed=embed)
+                if len(c.members) == 1:
+                    event.player.queue.clear()
+                    await event.player.disconnect()
+                    return
+                embed = discord.Embed(colour=c.guild.me.top_role.colour, title='Now Playing', description=event.track.title)
+                embed.timestamp = datetime.datetime.utcnow()
+                requester = await self.bot.get_user_info(event.track.requester)
+                embed.set_footer(text='Requested by ' + requester.name)
+                embed.set_thumbnail(url=event.track.thumbnail)
+                await c.send(embed=embed)
         elif isinstance(event, lavalink.Events.QueueEndEvent):
-            c = event.player.fetch('channel')
+            c = self.bot.get_channel(event.player.fetch('channel'))
             if c:
-                c = self.bot.get_channel(c)
-                if c:
-                    if c.members == 1:
-                        event.player.queue.clear()
-                        await event.player.disconnect()
-                        return
-                    await c.send('There is no more songs in the queue. Why not add some more?')
+                if len(c.members) == 1:
+                    event.player.queue.clear()
+                    await event.player.disconnect()
+                    return
+                await c.send('There is no more songs in the queue. Why not add some more?')
 
     @commands.command(aliases=['p', 'sing'])
     async def play(self, ctx, *, query):
@@ -135,9 +131,7 @@ class Music:
             if not ctx.author.voice or not ctx.author.voice.channel or player.connected_channel.id != ctx.author.voice.channel.id:
                 return await ctx.send('Join my voice channel!')
 
-        list = 'https://www.youtube.com/watch?v=aJOTlE1K90k&list=PLw-VjHDlEOgvtnnnqWlTqByAtC7tXBg6D'
-
-        query = list
+        query = 'https://www.youtube.com/watch?v=aJOTlE1K90k&list=PLw-VjHDlEOgvtnnnqWlTqByAtC7tXBg6D'
 
         results = await self.bot.lavalink.get_tracks(query)
 
